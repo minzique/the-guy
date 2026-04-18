@@ -1,0 +1,51 @@
+{
+  "version": "0.1",
+  "id": "power-user",
+  "displayName": "Power User",
+  "description": "Pi-first founder dogfood profile for macOS with bundled power-user runtime assets.",
+  "status": "shipping",
+  "inherits": ["base"],
+  "supportedPlatforms": ["darwin"],
+  "uiMode": "terminal-first",
+  "channel": "dogfood",
+  "selectable": true,
+  "managedTools": ["claude", "codex", "pi", "gh"],
+  "binaryRequirements": [
+    {
+      "id": "pi",
+      "displayName": "Pi Coding Agent",
+      "required": true,
+      "managedByGuy": true,
+      "verifyCommand": "pi list",
+      "installCommand": "npm install -g @mariozechner/pi-coding-agent",
+      "installHint": "npm install -g @mariozechner/pi-coding-agent"
+    },
+    {
+      "id": "claude",
+      "displayName": "Claude Code",
+      "required": false,
+      "managedByGuy": false,
+      "verifyCommand": "claude --version",
+      "installHint": "Install Claude Code before running guy auth claude"
+    },
+    {
+      "id": "codex",
+      "displayName": "Codex CLI",
+      "required": false,
+      "managedByGuy": false,
+      "verifyCommand": "codex --version",
+      "installHint": "Install Codex before running guy auth codex"
+    },
+    {
+      "id": "gh",
+      "displayName": "GitHub CLI",
+      "required": false,
+      "managedByGuy": false,
+      "verifyCommand": "gh --version",
+      "installHint": "Install gh if you want worktree and PR flows"
+    }
+  ],
+  "assetManifest": "./assets.json",
+  "doctorChecks": ["runtime-state", "managed-assets", "pi", "claude-auth", "codex-auth", "platform"],
+  "postInstall": []
+}

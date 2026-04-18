@@ -1,0 +1,27 @@
+{
+  "version": "0.1",
+  "id": "base",
+  "displayName": "Base",
+  "description": "Internal shared runtime defaults for The Guy v0.1.",
+  "status": "internal",
+  "inherits": [],
+  "supportedPlatforms": ["darwin"],
+  "uiMode": "standard",
+  "channel": "dogfood",
+  "selectable": false,
+  "managedTools": ["pi"],
+  "binaryRequirements": [
+    {
+      "id": "pi",
+      "displayName": "Pi Coding Agent",
+      "required": true,
+      "managedByGuy": true,
+      "verifyCommand": "pi list",
+      "installCommand": "npm install -g @mariozechner/pi-coding-agent",
+      "installHint": "npm install -g @mariozechner/pi-coding-agent"
+    }
+  ],
+  "assetManifest": "./assets.json",
+  "doctorChecks": ["runtime-state", "managed-assets", "pi", "platform"],
+  "postInstall": []
+}
