@@ -1,0 +1,29 @@
+{
+  "version": "0.1",
+  "generatedAt": "2026-04-18T14:23:05.108Z",
+  "skills": [
+    {
+      "id": "browser-tools",
+      "description": "Interactive browser automation via Chrome DevTools Protocol.",
+      "source": "./pi-agent-skills/browser-tools",
+      "destination": "~/.pi/agent/vendor-skills/browser-tools",
+      "replaces": [
+        "agent-browser"
+      ],
+      "postInstall": [
+        {
+          "id": "browser-tools-deps",
+          "cwd": "~/.pi/agent/vendor-skills/browser-tools",
+          "run": "npm ci"
+        }
+      ],
+      "provenance": {
+        "repo": "https://github.com/badlogic/pi-skills.git",
+        "path": "browser-tools",
+        "trackedRef": "main",
+        "pinnedCommit": "75d32a382b0c8aafce356d68e17d2dc94c0c953b",
+        "license": "MIT"
+      }
+    }
+  ]
+}
