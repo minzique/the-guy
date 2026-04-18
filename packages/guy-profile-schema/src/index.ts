@@ -77,6 +77,7 @@ export interface GuyPackManifest {
   minimumRuntimeVersion: string;
   maximumTestedRuntimeVersion: string;
   assets: ManagedAsset[];
+  postInstall?: PostInstallTask[];
 }
 
 export interface GuyProfileManifest {

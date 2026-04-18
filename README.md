@@ -101,6 +101,8 @@ The shell script only resolves and installs the release bundle. The real runtime
 
 The canonical shipped Pi payload now lives under `packages/guy-pi-pack/assets/.pi/agent/`.
 
+Third-party curated Pi skills are generated from `/Users/minzi/Developer/pi-curated-skills`, not authored directly inside the pack. The shipped runtime destination for those skills is `~/.pi/agent/vendor-skills/**`.
+
 For founder-compatibility, `profiles/power-user/assets/` is still kept as a generated mirror/fallback, not the authoring source. For now the sync flow still refreshes the pack from the upstream Pi authoring repo, then regenerates the profile mirror:
 
 ```bash

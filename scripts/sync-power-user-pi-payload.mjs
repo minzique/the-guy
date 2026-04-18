@@ -27,10 +27,28 @@ function resolveSourceRoot() {
   );
 }
 
+function resolveCuratedSkillsRoot() {
+  if (process.env.THE_GUY_PI_CURATED_SKILLS_SOURCE) {
+    return process.env.THE_GUY_PI_CURATED_SKILLS_SOURCE;
+  }
+
+  const siblingCurated = path.resolve(repoRoot, "..", "pi-curated-skills");
+  if (existsSync(siblingCurated)) {
+    return siblingCurated;
+  }
+
+  throw new Error(
+    "Could not locate pi-curated-skills. Set THE_GUY_PI_CURATED_SKILLS_SOURCE or check out pi-curated-skills beside the-guy."
+  );
+}
+
 const sourceRoot = resolveSourceRoot();
+const curatedSkillsRoot = resolveCuratedSkillsRoot();
+const curatedSkillsManifestPath = path.join(curatedSkillsRoot, "exports", "pi-agent-skills.manifest.json");
+const curatedSkillsManifest = JSON.parse(readFileSync(curatedSkillsManifestPath, "utf8"));
 
 const DIRECTORIES_TO_SYNC = ["agents", "prompts", "skills"];
-const FILES_TO_SYNC = [];
+const FILES_TO_SYNC = ["AGENTS.md", "settings.json"];
 const EXCLUDED_RELATIVE_PATHS = [path.join("skills", "linear")];
 const REPO_OWNED_FILE_PATHS = [path.join("skills", "team-debate", "SKILL.md")];
 const EXTENSIONS_TO_SYNC = [
@@ -132,6 +150,75 @@ function buildManagedAssets(manifestRoot, assetsRoot) {
   });
 }
 
+function syncCuratedVendorSkills(destinationRoot) {
+  const vendorSkillsRoot = path.join(destinationRoot, "vendor-skills");
+  mkdirSync(vendorSkillsRoot, { recursive: true });
+
+  for (const skill of curatedSkillsManifest.skills) {
+    const sourcePath = path.join(curatedSkillsRoot, "exports", skill.source.replace(/^\.\//u, ""));
+    const destinationPath = path.join(vendorSkillsRoot, skill.id);
+
+    if (!existsSync(sourcePath)) {
+      throw new Error(`Missing curated skill export: ${sourcePath}`);
+    }
+
+    rmSync(destinationPath, { force: true, recursive: true });
+    mkdirSync(path.dirname(destinationPath), { recursive: true });
+    cpSync(sourcePath, destinationPath, {
+      recursive: true,
+      filter: (itemPath) => !FILTERED_DIRECTORY_NAMES.has(path.basename(itemPath))
+    });
+
+    for (const replacedId of skill.replaces ?? []) {
+      rmSync(path.join(destinationRoot, "skills", replacedId), { force: true, recursive: true });
+      rmSync(path.join(vendorSkillsRoot, replacedId), { force: true, recursive: true });
+    }
+  }
+
+  writeFileSync(
+    path.join(destinationRoot, "upstream-skills.manifest.json"),
+    `${JSON.stringify(curatedSkillsManifest, null, 2)}\n`
+  );
+
+  return curatedSkillsManifest.skills.flatMap((skill) =>
+    (skill.postInstall ?? []).map((task) => ({
+      id: `curated-${skill.id}-${task.id}`,
+      cwd: task.cwd,
+      run: task.run,
+      optional: task.optional ?? false
+    }))
+  );
+}
+
+function rewritePackSettings() {
+  const settingsPath = path.join(packAgentRoot, "settings.json");
+  const settings = JSON.parse(readFileSync(settingsPath, "utf8"));
+  const rewrittenPackages = [];
+
+  for (const entry of settings.packages ?? []) {
+    if (entry === "npm:pi-web-access") {
+      rewrittenPackages.push(entry);
+      continue;
+    }
+
+    if (/pi-claude-oauth-adapter$/u.test(entry)) {
+      rewrittenPackages.push("npm:pi-claude-oauth-adapter");
+      continue;
+    }
+
+    if (/pi-whatsapp$/u.test(entry) || /pi-btw$/u.test(entry)) {
+      continue;
+    }
+
+    if (typeof entry === "string" && entry.startsWith("npm:")) {
+      rewrittenPackages.push(entry);
+    }
+  }
+
+  settings.packages = Array.from(new Set(rewrittenPackages));
+  writeFileSync(settingsPath, `${JSON.stringify(settings, null, 2)}\n`);
+}
+
 function synchronizeVersionReferences() {
   const packPackageJsonPath = path.join(packRoot, "package.json");
   const packPackage = JSON.parse(readFileSync(packPackageJsonPath, "utf8"));
@@ -149,7 +236,7 @@ function synchronizeVersionReferences() {
   writeFileSync(profileManifestPath, `${JSON.stringify(profileManifest, null, 2)}\n`);
 }
 
-function regeneratePackManifest() {
+function regeneratePackManifest(postInstall = []) {
   const assets = buildManagedAssets(packRoot, packAssetsRoot);
   const packManifest = {
     version: "0.1",
@@ -159,7 +246,8 @@ function regeneratePackManifest() {
     packVersion: repoPackage.version,
     minimumRuntimeVersion: "0.1.0",
     maximumTestedRuntimeVersion: "0.1.x",
-    assets
+    assets,
+    postInstall
   };
 
   writeFileSync(path.join(packRoot, "pack.json"), `${JSON.stringify(packManifest, null, 2)}\n`);
@@ -211,9 +299,11 @@ function main() {
   }
 
   restoreRepoOwnedFiles(packAgentRoot, repoOwnedSnapshots);
+  const curatedPostInstallTasks = syncCuratedVendorSkills(packAgentRoot);
+  rewritePackSettings();
   synchronizeVersionReferences();
 
-  const packAssetCount = regeneratePackManifest();
+  const packAssetCount = regeneratePackManifest(curatedPostInstallTasks);
   mirrorPackIntoProfile();
   const profileAssetCount = regenerateProfileAssetManifest();
 

@@ -663,6 +663,18 @@ function loadPackManifest(reference: GuyPiPackReference, runtimeVersion: string)
   return pack;
 }
 
+function resolvePackPostInstallTasks(
+  profile: GuyProfileManifest,
+  runtimeVersion: string
+): PostInstallTask[] {
+  if (!profile.piPack) {
+    return [];
+  }
+
+  const pack = loadPackManifest(profile.piPack, runtimeVersion);
+  return pack.postInstall ?? [];
+}
+
 function resolveManagedAssetsForProfile(
   profile: GuyProfileManifest,
   explicitHomeDirectory: string | undefined,
@@ -716,6 +728,10 @@ export function resolveManagedAssets(
 }
 
 function runPostInstallTasks(tasks: readonly PostInstallTask[], explicitHomeDirectory?: string): void {
+  if (process.env.GUY_SKIP_POST_INSTALL === "1") {
+    return;
+  }
+
   for (const task of tasks) {
     const cwd = resolveHomePath(task.cwd, explicitHomeDirectory);
     mkdirSync(cwd, { recursive: true });
@@ -798,6 +814,10 @@ export function installProfile(
   ensureManagedBinaryRequirements(profile);
 
   const assets = resolveManagedAssets(profileId, explicitHomeDirectory, runtime.version);
+  const postInstallTasks = mergePostInstallTasks([
+    ...resolvePackPostInstallTasks(profile, runtime.version),
+    ...(profile.postInstall ?? [])
+  ]);
 
   for (const asset of assets) {
     if (!existsSync(asset.sourcePath)) {
@@ -813,7 +833,7 @@ export function installProfile(
     copyFileSync(asset.sourcePath, asset.destinationPath);
   }
 
-  runPostInstallTasks(profile.postInstall ?? [], explicitHomeDirectory);
+  runPostInstallTasks(postInstallTasks, explicitHomeDirectory);
   syncPiPackages(explicitHomeDirectory);
 
   const managedAssetHash = computeManagedAssetHash(assets);

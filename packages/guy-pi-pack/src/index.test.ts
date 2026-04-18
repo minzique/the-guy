@@ -15,4 +15,5 @@ test("pi pack manifest loads the shipped asset set", () => {
   assert.equal(manifest.id, "pi-pack");
   assert.equal(manifest.packageName, "@the-guy/pi-pack");
   assert.equal(manifest.assets.length > 250, true);
+  assert.equal((manifest.postInstall?.length ?? 0) > 0, true);
 });

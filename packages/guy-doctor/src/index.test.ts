@@ -8,6 +8,7 @@ import { installProfile } from "@the-guy/core";
 
 process.env.GUY_SKIP_MANAGED_INSTALLS = "1";
 process.env.GUY_SKIP_PI_PACKAGE_SYNC = "1";
+process.env.GUY_SKIP_POST_INSTALL = "1";
 
 import { getDefaultDoctorChecks, runDoctor } from "./index.js";
 

@@ -14,7 +14,8 @@ test("CLI install writes state and copies the first shipped assets", () => {
     ...process.env,
     GUY_HOME: tempHome,
     GUY_SKIP_MANAGED_INSTALLS: "1",
-    GUY_SKIP_PI_PACKAGE_SYNC: "1"
+    GUY_SKIP_PI_PACKAGE_SYNC: "1",
+    GUY_SKIP_POST_INSTALL: "1"
   };
 
   const install = spawnSync(process.execPath, [cliPath, "install"], {
@@ -61,7 +62,8 @@ test("CLI repair restores a deleted managed asset", () => {
     ...process.env,
     GUY_HOME: tempHome,
     GUY_SKIP_MANAGED_INSTALLS: "1",
-    GUY_SKIP_PI_PACKAGE_SYNC: "1"
+    GUY_SKIP_PI_PACKAGE_SYNC: "1",
+    GUY_SKIP_POST_INSTALL: "1"
   };
   const scoutAgentPath = path.join(tempHome, ".pi", "agent", "agents", "scout.md");
 

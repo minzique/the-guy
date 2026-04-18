@@ -20,6 +20,7 @@ import {
 
 process.env.GUY_SKIP_MANAGED_INSTALLS = "1";
 process.env.GUY_SKIP_PI_PACKAGE_SYNC = "1";
+process.env.GUY_SKIP_POST_INSTALL = "1";
 
 test("resolveGuyPaths respects an explicit home directory", () => {
   const paths = resolveGuyPaths("/tmp/the-guy-home");
