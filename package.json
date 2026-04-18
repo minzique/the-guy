@@ -17,6 +17,7 @@
     "doctor": "pnpm --filter @the-guy/installer start -- doctor",
     "sync:power-user-payload": "node ./scripts/sync-power-user-pi-payload.mjs",
     "release:bundle": "pnpm build && node ./scripts/build-release-bundle.mjs",
+    "site:build": "node ./scripts/build-pages-site.mjs",
     "rfc:pdf": "pandoc docs/rfcs/RFC-001-the-guy-managed-agent-harness-distribution.md --from gfm --standalone --css docs/rfcs/assets/rfc.css --pdf-engine=weasyprint -o docs/rfcs/RFC-001-the-guy-managed-agent-harness-distribution.pdf"
   },
   "devDependencies": {
