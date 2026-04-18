@@ -1,0 +1,91 @@
+@page {
+  size: Letter;
+  margin: 0.8in;
+}
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 11pt;
+  line-height: 1.45;
+  color: #111827;
+}
+
+body {
+  max-width: 8.2in;
+}
+
+h1, h2, h3, h4 {
+  color: #0f172a;
+  line-height: 1.2;
+  margin-top: 1.15em;
+  margin-bottom: 0.45em;
+}
+
+h1 {
+  font-size: 22pt;
+  border-bottom: 2px solid #cbd5e1;
+  padding-bottom: 0.15in;
+}
+
+h2 {
+  font-size: 15pt;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 0.05in;
+}
+
+h3 {
+  font-size: 12.5pt;
+}
+
+p, li {
+  orphans: 3;
+  widows: 3;
+}
+
+code, pre {
+  font-family: "SFMono-Regular", "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.9em;
+}
+
+pre {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  padding: 0.12in;
+  border-radius: 8px;
+  white-space: pre-wrap;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.12in 0;
+  font-size: 0.95em;
+}
+
+th, td {
+  border: 1px solid #cbd5e1;
+  padding: 0.08in;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background: #e2e8f0;
+}
+
+blockquote {
+  border-left: 4px solid #94a3b8;
+  margin-left: 0;
+  padding-left: 0.14in;
+  color: #334155;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid #cbd5e1;
+  margin: 0.2in 0;
+}
