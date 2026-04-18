@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 import { spawnSync } from "node:child_process";
-import { copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { copyFileSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -572,6 +572,33 @@ function backupExistingAsset(asset: ResolvedManagedAsset, paths: GuyPaths): void
   copyFileSync(asset.destinationPath, backupPath);
 }
 
+function removeStaleManagedAssets(
+  profileId: string,
+  assets: readonly ResolvedManagedAsset[],
+  paths: GuyPaths
+): void {
+  const renderedAssetsPath = path.join(paths.renderedDir, profileId, "assets.json");
+  if (!existsSync(renderedAssetsPath)) {
+    return;
+  }
+
+  let previousMetadata: RenderedAssetMetadata;
+  try {
+    previousMetadata = readJsonFile<RenderedAssetMetadata>(renderedAssetsPath);
+  } catch {
+    return;
+  }
+
+  const nextDestinations = new Set(assets.map((asset) => asset.destinationPath));
+  for (const previousAsset of previousMetadata.assets) {
+    if (nextDestinations.has(previousAsset.destinationPath)) {
+      continue;
+    }
+
+    rmSync(previousAsset.destinationPath, { force: true, recursive: true });
+  }
+}
+
 function computeManagedAssetHash(assets: readonly ResolvedManagedAsset[]): string {
   const hash = createHash("sha256");
   const sortedAssets = [...assets].sort((left, right) => left.id.localeCompare(right.id));
@@ -818,6 +845,8 @@ export function installProfile(
     ...resolvePackPostInstallTasks(profile, runtime.version),
     ...(profile.postInstall ?? [])
   ]);
+
+  removeStaleManagedAssets(profileId, assets, paths);
 
   for (const asset of assets) {
     if (!existsSync(asset.sourcePath)) {

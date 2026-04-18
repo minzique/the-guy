@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { existsSync, mkdtempSync, rmSync } from "node:fs";
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import test from "node:test";
@@ -91,6 +91,8 @@ test("installProfile copies bundled assets and writes install state", () => {
   assert.equal(existsSync(path.join(tempHome, ".pi", "agent", "agents", "scout.md")), true);
   assert.equal(existsSync(path.join(tempHome, ".pi", "agent", "extensions", "context-awareness.ts")), true);
   assert.equal(existsSync(path.join(tempHome, ".pi", "agent", "skills", "think", "SKILL.md")), true);
+  assert.equal(existsSync(path.join(tempHome, ".pi", "agent", "vendor-skills", "browser-tools", "SKILL.md")), true);
+  assert.equal(existsSync(path.join(tempHome, ".pi", "agent", "upstream-skills.manifest.json")), true);
   assert.equal(
     existsSync(path.join(tempHome, ".guy", "rendered", "power-user", "assets.json")),
     true
@@ -109,6 +111,40 @@ test("repairInstalledProfile re-copies a missing managed asset", () => {
 
   repairInstalledProfile(tempHome);
   assert.equal(existsSync(scoutDestination), true);
+});
+
+test("repairInstalledProfile removes previously managed assets that are no longer shipped", () => {
+  const tempHome = mkdtempSync(path.join(os.tmpdir(), "the-guy-prune-"));
+  const renderedAssetsPath = path.join(tempHome, ".guy", "rendered", "power-user", "assets.json");
+  const legacySkillPath = path.join(tempHome, ".pi", "agent", "skills", "agent-browser", "SKILL.md");
+
+  installProfile("power-user", tempHome);
+  mkdirSync(path.dirname(legacySkillPath), { recursive: true });
+  writeFileSync(legacySkillPath, "legacy browser skill\n");
+
+  const renderedMetadata = JSON.parse(readFileSync(renderedAssetsPath, "utf8")) as {
+    generatedAt: string;
+    profileId: string;
+    assets: Array<{
+      id: string;
+      sourcePath: string;
+      destinationPath: string;
+      strategy: string;
+      required: boolean;
+    }>;
+  };
+
+  renderedMetadata.assets.push({
+    id: "legacy-agent-browser",
+    sourcePath: "/tmp/legacy-agent-browser",
+    destinationPath: legacySkillPath,
+    strategy: "copy",
+    required: true
+  });
+  writeFileSync(renderedAssetsPath, `${JSON.stringify(renderedMetadata, null, 2)}\n`);
+
+  repairInstalledProfile(tempHome);
+  assert.equal(existsSync(legacySkillPath), false);
 });
 
 test("repairInstalledProfile fails cleanly when there is no prior install", () => {
