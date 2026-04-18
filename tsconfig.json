@@ -1,0 +1,11 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./packages/guy-profile-schema" },
+    { "path": "./packages/guy-core" },
+    { "path": "./packages/guy-auth-claude" },
+    { "path": "./packages/guy-auth-codex" },
+    { "path": "./packages/guy-doctor" },
+    { "path": "./apps/guy-installer" }
+  ]
+}

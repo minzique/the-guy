@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022"],
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "moduleDetection": "force",
+    "strict": true,
+    "noImplicitOverride": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "verbatimModuleSyntax": true,
+    "resolveJsonModule": true,
+    "declaration": true,
+    "sourceMap": true,
+    "composite": true,
+    "skipLibCheck": true,
+    "types": ["node"],
+    "baseUrl": ".",
+    "paths": {
+      "@the-guy/profile-schema": ["packages/guy-profile-schema/src/index.ts"],
+      "@the-guy/core": ["packages/guy-core/src/index.ts"],
+      "@the-guy/auth-claude": ["packages/guy-auth-claude/src/index.ts"],
+      "@the-guy/auth-codex": ["packages/guy-auth-codex/src/index.ts"],
+      "@the-guy/doctor": ["packages/guy-doctor/src/index.ts"]
+    }
+  }
+}

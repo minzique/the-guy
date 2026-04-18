@@ -1,0 +1,27 @@
+{
+  "name": "the-guy",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "packageManager": "pnpm@10.7.1",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "clean": "node ./scripts/clean.mjs",
+    "dev": "pnpm --filter @the-guy/installer dev",
+    "start": "pnpm --filter @the-guy/installer start",
+    "typecheck": "pnpm -r --if-present typecheck",
+    "test": "pnpm build && node ./scripts/run-tests.mjs",
+    "doctor": "pnpm --filter @the-guy/installer start -- doctor",
+    "sync:power-user-payload": "node ./scripts/sync-power-user-pi-payload.mjs",
+    "release:bundle": "pnpm build && node ./scripts/build-release-bundle.mjs",
+    "rfc:pdf": "pandoc docs/rfcs/RFC-001-the-guy-managed-agent-harness-distribution.md --from gfm --standalone --css docs/rfcs/assets/rfc.css --pdf-engine=weasyprint -o docs/rfcs/RFC-001-the-guy-managed-agent-harness-distribution.pdf"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.3",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
+  }
+}
