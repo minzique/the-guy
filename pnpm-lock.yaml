@@ -42,6 +42,9 @@ importers:
 
   packages/guy-core:
     dependencies:
+      '@the-guy/pi-pack':
+        specifier: workspace:*
+        version: link:../guy-pi-pack
       '@the-guy/profile-schema':
         specifier: workspace:*
         version: link:../guy-profile-schema
@@ -57,6 +60,12 @@ importers:
       '@the-guy/core':
         specifier: workspace:*
         version: link:../guy-core
+
+  packages/guy-pi-pack:
+    dependencies:
+      '@the-guy/profile-schema':
+        specifier: workspace:*
+        version: link:../guy-profile-schema
 
   packages/guy-profile-schema: {}
 
