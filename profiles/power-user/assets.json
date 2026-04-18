@@ -115,83 +115,6 @@
       "required": true
     },
     {
-      "id": "pi-agent-skills-agent-browser-references-authentication-md",
-      "source": "./assets/.pi/agent/skills/agent-browser/references/authentication.md",
-      "destination": "~/.pi/agent/skills/agent-browser/references/authentication.md",
-      "strategy": "copy",
-      "required": true
-    },
-    {
-      "id": "pi-agent-skills-agent-browser-references-commands-md",
-      "source": "./assets/.pi/agent/skills/agent-browser/references/commands.md",
-      "destination": "~/.pi/agent/skills/agent-browser/references/commands.md",
-      "strategy": "copy",
-      "required": true
-    },
-    {
-      "id": "pi-agent-skills-agent-browser-references-profiling-md",
-      "source": "./assets/.pi/agent/skills/agent-browser/references/profiling.md",
-      "destination": "~/.pi/agent/skills/agent-browser/references/profiling.md",
-      "strategy": "copy",
-      "required": true
-    },
-    {
-      "id": "pi-agent-skills-agent-browser-references-proxy-support-md",
-      "source": "./assets/.pi/agent/skills/agent-browser/references/proxy-support.md",
-      "destination": "~/.pi/agent/skills/agent-browser/references/proxy-support.md",
-      "strategy": "copy",
-      "required": true
-    },
-    {
-      "id": "pi-agent-skills-agent-browser-references-session-management-md",
-      "source": "./assets/.pi/agent/skills/agent-browser/references/session-management.md",
-      "destination": "~/.pi/agent/skills/agent-browser/references/session-management.md",
-      "strategy": "copy",
-      "required": true
-    },
-    {
-      "id": "pi-agent-skills-agent-browser-references-snapshot-refs-md",
-      "source": "./assets/.pi/agent/skills/agent-browser/references/snapshot-refs.md",
-      "destination": "~/.pi/agent/skills/agent-browser/references/snapshot-refs.md",
-      "strategy": "copy",
-      "required": true
-    },
-    {
-      "id": "pi-agent-skills-agent-browser-references-video-recording-md",
-      "source": "./assets/.pi/agent/skills/agent-browser/references/video-recording.md",
-      "destination": "~/.pi/agent/skills/agent-browser/references/video-recording.md",
-      "strategy": "copy",
-      "required": true
-    },
-    {
-      "id": "pi-agent-skills-agent-browser-skill-md",
-      "source": "./assets/.pi/agent/skills/agent-browser/SKILL.md",
-      "destination": "~/.pi/agent/skills/agent-browser/SKILL.md",
-      "strategy": "copy",
-      "required": true
-    },
-    {
-      "id": "pi-agent-skills-agent-browser-templates-authenticated-session-sh",
-      "source": "./assets/.pi/agent/skills/agent-browser/templates/authenticated-session.sh",
-      "destination": "~/.pi/agent/skills/agent-browser/templates/authenticated-session.sh",
-      "strategy": "copy",
-      "required": true
-    },
-    {
-      "id": "pi-agent-skills-agent-browser-templates-capture-workflow-sh",
-      "source": "./assets/.pi/agent/skills/agent-browser/templates/capture-workflow.sh",
-      "destination": "~/.pi/agent/skills/agent-browser/templates/capture-workflow.sh",
-      "strategy": "copy",
-      "required": true
-    },
-    {
-      "id": "pi-agent-skills-agent-browser-templates-form-automation-sh",
-      "source": "./assets/.pi/agent/skills/agent-browser/templates/form-automation.sh",
-      "destination": "~/.pi/agent/skills/agent-browser/templates/form-automation.sh",
-      "strategy": "copy",
-      "required": true
-    },
-    {
       "id": "pi-agent-skills-clean-code-assets-templates-template-md",
       "source": "./assets/.pi/agent/skills/clean-code/assets/templates/_template.md",
       "destination": "~/.pi/agent/skills/clean-code/assets/templates/_template.md",
@@ -990,13 +913,6 @@
       "required": true
     },
     {
-      "id": "pi-agent-skills-dev-rfc-bun-lock",
-      "source": "./assets/.pi/agent/skills/dev-rfc/bun.lock",
-      "destination": "~/.pi/agent/skills/dev-rfc/bun.lock",
-      "strategy": "copy",
-      "required": true
-    },
-    {
       "id": "pi-agent-skills-dev-rfc-package-json",
       "source": "./assets/.pi/agent/skills/dev-rfc/package.json",
       "destination": "~/.pi/agent/skills/dev-rfc/package.json",
@@ -1039,13 +955,6 @@
       "required": true
     },
     {
-      "id": "pi-agent-skills-docs-style-skill-md",
-      "source": "./assets/.pi/agent/skills/docs-style/SKILL.md",
-      "destination": "~/.pi/agent/skills/docs-style/SKILL.md",
-      "strategy": "copy",
-      "required": true
-    },
-    {
       "id": "pi-agent-skills-exec-plan-skill-md",
       "source": "./assets/.pi/agent/skills/exec-plan/SKILL.md",
       "destination": "~/.pi/agent/skills/exec-plan/SKILL.md",
@@ -1060,23 +969,9 @@
       "required": true
     },
     {
-      "id": "pi-agent-skills-git-workflow-skill-md",
-      "source": "./assets/.pi/agent/skills/git-workflow/SKILL.md",
-      "destination": "~/.pi/agent/skills/git-workflow/SKILL.md",
-      "strategy": "copy",
-      "required": true
-    },
-    {
       "id": "pi-agent-skills-humanizer-skill-md",
       "source": "./assets/.pi/agent/skills/humanizer/SKILL.md",
       "destination": "~/.pi/agent/skills/humanizer/SKILL.md",
-      "strategy": "copy",
-      "required": true
-    },
-    {
-      "id": "pi-agent-skills-project-docs-skill-md",
-      "source": "./assets/.pi/agent/skills/project-docs/SKILL.md",
-      "destination": "~/.pi/agent/skills/project-docs/SKILL.md",
       "strategy": "copy",
       "required": true
     },
@@ -1938,6 +1833,97 @@
       "id": "pi-agent-skills-x-cli-skill-md",
       "source": "./assets/.pi/agent/skills/x-cli/SKILL.md",
       "destination": "~/.pi/agent/skills/x-cli/SKILL.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-upstream-skills-manifest-json",
+      "source": "./assets/.pi/agent/upstream-skills.manifest.json",
+      "destination": "~/.pi/agent/upstream-skills.manifest.json",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-vendor-skills-browser-tools-gitignore",
+      "source": "./assets/.pi/agent/vendor-skills/browser-tools/.gitignore",
+      "destination": "~/.pi/agent/vendor-skills/browser-tools/.gitignore",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-vendor-skills-browser-tools-browser-content-js",
+      "source": "./assets/.pi/agent/vendor-skills/browser-tools/browser-content.js",
+      "destination": "~/.pi/agent/vendor-skills/browser-tools/browser-content.js",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-vendor-skills-browser-tools-browser-cookies-js",
+      "source": "./assets/.pi/agent/vendor-skills/browser-tools/browser-cookies.js",
+      "destination": "~/.pi/agent/vendor-skills/browser-tools/browser-cookies.js",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-vendor-skills-browser-tools-browser-eval-js",
+      "source": "./assets/.pi/agent/vendor-skills/browser-tools/browser-eval.js",
+      "destination": "~/.pi/agent/vendor-skills/browser-tools/browser-eval.js",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-vendor-skills-browser-tools-browser-hn-scraper-js",
+      "source": "./assets/.pi/agent/vendor-skills/browser-tools/browser-hn-scraper.js",
+      "destination": "~/.pi/agent/vendor-skills/browser-tools/browser-hn-scraper.js",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-vendor-skills-browser-tools-browser-nav-js",
+      "source": "./assets/.pi/agent/vendor-skills/browser-tools/browser-nav.js",
+      "destination": "~/.pi/agent/vendor-skills/browser-tools/browser-nav.js",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-vendor-skills-browser-tools-browser-pick-js",
+      "source": "./assets/.pi/agent/vendor-skills/browser-tools/browser-pick.js",
+      "destination": "~/.pi/agent/vendor-skills/browser-tools/browser-pick.js",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-vendor-skills-browser-tools-browser-screenshot-js",
+      "source": "./assets/.pi/agent/vendor-skills/browser-tools/browser-screenshot.js",
+      "destination": "~/.pi/agent/vendor-skills/browser-tools/browser-screenshot.js",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-vendor-skills-browser-tools-browser-start-js",
+      "source": "./assets/.pi/agent/vendor-skills/browser-tools/browser-start.js",
+      "destination": "~/.pi/agent/vendor-skills/browser-tools/browser-start.js",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-vendor-skills-browser-tools-package-lock-json",
+      "source": "./assets/.pi/agent/vendor-skills/browser-tools/package-lock.json",
+      "destination": "~/.pi/agent/vendor-skills/browser-tools/package-lock.json",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-vendor-skills-browser-tools-package-json",
+      "source": "./assets/.pi/agent/vendor-skills/browser-tools/package.json",
+      "destination": "~/.pi/agent/vendor-skills/browser-tools/package.json",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-vendor-skills-browser-tools-skill-md",
+      "source": "./assets/.pi/agent/vendor-skills/browser-tools/SKILL.md",
+      "destination": "~/.pi/agent/vendor-skills/browser-tools/SKILL.md",
       "strategy": "copy",
       "required": true
     }

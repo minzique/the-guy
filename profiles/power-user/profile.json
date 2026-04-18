@@ -60,7 +60,6 @@
     }
   ],
   "assetManifest": "./assets.json",
-  "assetManifest": "./assets.json",
   "doctorChecks": [
     "runtime-state",
     "managed-assets",
