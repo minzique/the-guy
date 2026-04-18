@@ -21,7 +21,7 @@ import type {
 import { loadPiPackManifest, resolvePiPackAssetSourcePath } from "@the-guy/pi-pack";
 
 export const GUY_DIRECTORY_NAME = ".guy";
-export const V0_SUPPORTED_COMMANDS = ["install", "auth", "status", "doctor", "repair"] as const;
+export const V0_SUPPORTED_COMMANDS = ["install", "auth", "status", "doctor", "repair", "sandbox"] as const;
 export type V0SupportedCommand = (typeof V0_SUPPORTED_COMMANDS)[number];
 export type ProviderId = "claude" | "codex";
 
@@ -121,12 +121,20 @@ function isWslEnvironment(environment: NodeJS.ProcessEnv = process.env): boolean
   return Boolean(environment.WSL_DISTRO_NAME || environment.WSL_INTEROP);
 }
 
+function isSandboxContainerEnvironment(environment: NodeJS.ProcessEnv = process.env): boolean {
+  return environment.GUY_SANDBOX === "1";
+}
+
 export function detectSupportedPlatform(
   nodePlatform: NodeJS.Platform = process.platform,
   environment: NodeJS.ProcessEnv = process.env
 ): SupportedPlatform | null {
   if (nodePlatform === "darwin") {
     return "darwin";
+  }
+
+  if (nodePlatform === "linux" && isSandboxContainerEnvironment(environment)) {
+    return "linux-container";
   }
 
   if (nodePlatform === "linux" && isWslEnvironment(environment)) {
@@ -167,7 +175,7 @@ export function getRuntimeContract(explicitHomeDirectory?: string): RuntimeContr
     version: "0.1.0",
     defaultProfileId: "power-user",
     defaultChannel: "dogfood",
-    supportedPlatforms: ["darwin"],
+    supportedPlatforms: ["darwin", "linux-container"],
     supportedCommands: V0_SUPPORTED_COMMANDS,
     stateFile: paths.installStateFile
   };

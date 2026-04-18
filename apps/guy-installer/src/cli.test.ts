@@ -82,3 +82,18 @@ test("CLI repair restores a deleted managed asset", () => {
   assert.match(String(repair.status), /^(0|1)$/);
   assert.equal(existsSync(scoutAgentPath), true);
 });
+
+test("CLI sandbox status prints sandbox metadata even when Docker is unavailable", () => {
+  const tempHome = mkdtempSync(path.join(os.tmpdir(), "the-guy-cli-sandbox-"));
+  const status = spawnSync(process.execPath, [cliPath, "sandbox", "status"], {
+    env: {
+      ...process.env,
+      GUY_HOME: tempHome
+    },
+    encoding: "utf8"
+  });
+
+  assert.equal(status.status, 0, status.stderr);
+  assert.match(status.stdout, /sandbox: default/);
+  assert.match(status.stdout, /driver: docker-local/);
+});

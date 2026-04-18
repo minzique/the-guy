@@ -23,7 +23,8 @@
       "@the-guy/core": ["packages/guy-core/src/index.ts"],
       "@the-guy/auth-claude": ["packages/guy-auth-claude/src/index.ts"],
       "@the-guy/auth-codex": ["packages/guy-auth-codex/src/index.ts"],
-      "@the-guy/doctor": ["packages/guy-doctor/src/index.ts"]
+      "@the-guy/doctor": ["packages/guy-doctor/src/index.ts"],
+      "@the-guy/sandbox": ["packages/guy-sandbox/src/index.ts"]
     }
   }
 }

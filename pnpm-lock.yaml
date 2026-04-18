@@ -35,6 +35,9 @@ importers:
       '@the-guy/profile-schema':
         specifier: workspace:*
         version: link:../../packages/guy-profile-schema
+      '@the-guy/sandbox':
+        specifier: workspace:*
+        version: link:../../packages/guy-sandbox
 
   packages/guy-auth-claude: {}
 
@@ -68,6 +71,12 @@ importers:
         version: link:../guy-profile-schema
 
   packages/guy-profile-schema: {}
+
+  packages/guy-sandbox:
+    dependencies:
+      '@the-guy/core':
+        specifier: workspace:*
+        version: link:../guy-core
 
 packages:
 

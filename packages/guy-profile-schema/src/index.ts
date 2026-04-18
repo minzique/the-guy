@@ -9,7 +9,7 @@ export type UiMode = (typeof UI_MODES)[number];
 export const PROFILE_STATUSES = ["internal", "shipping", "deferred"] as const;
 export type ProfileStatus = (typeof PROFILE_STATUSES)[number];
 
-export const SUPPORTED_PLATFORMS = ["darwin", "linux-wsl"] as const;
+export const SUPPORTED_PLATFORMS = ["darwin", "linux-wsl", "linux-container"] as const;
 export type SupportedPlatform = (typeof SUPPORTED_PLATFORMS)[number];
 
 export const MANAGED_TOOLS = ["claude", "codex", "pi", "gh"] as const;

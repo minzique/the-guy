@@ -13,6 +13,7 @@ This repo is an active v0.1 founder dogfood build.
 - Vision: `docs/VISION.md`
 - Product direction: `docs/rfcs/RFC-001-the-guy-managed-agent-harness-distribution.md`
 - Installer/profile contract: `docs/rfcs/RFC-002-the-guy-v0-1-installer-and-profile-contract.md`
+- Dual runtime contract: `docs/rfcs/RFC-004-dual-runtime-native-and-docker-sandbox.md`
 - Weekend execution record: `docs/exec-plans/completed/the-guy-founder-weekend-dogfood.md`
 - **v0.1 supports macOS only**
 - **v0.1 is CLI-only**
@@ -27,6 +28,7 @@ apps/
 packages/
   guy-core/             Runtime install logic, asset rendering, package sync, state
   guy-doctor/           Health checks and auto-fix surface
+  guy-sandbox/          Docker-backed sandbox lifecycle and driver contract
   guy-profile-schema/   Shared profile manifest schema
   guy-auth-claude/      Claude enrollment flow
   guy-auth-codex/       Codex enrollment flow
@@ -51,11 +53,18 @@ guy status
 guy doctor
 guy doctor --fix
 guy repair
+guy sandbox start
+guy sandbox status
+guy sandbox shell
+guy sandbox exec -- <cmd>
+guy sandbox stop
+guy sandbox doctor
 ```
 
 The current CLI performs a real Pi-first install slice:
 
 - installs the `power-user` profile into a real home directory or temp override
+- can assemble a Docker sandbox image from the current runtime bundle and keep a warm container around
 - installs Pi if the managed binary is missing
 - copies the bundled Pi payload into `~/.pi/**`
 - syncs portable Pi packages from the shipped settings
@@ -68,9 +77,10 @@ The current CLI performs a real Pi-first install slice:
 
 1. Finish the founder weekend dogfood flow and validate it from the release bundle
 2. Extract the Pi payload into a pack-owned package + override layer (`RFC-003`)
-3. Deepen provider auth/state detection for Claude and Codex
-4. Add safer drift reporting and support-bundle diagnostics
-5. Package Paperclip and connector health on top of the local runtime once the Pi-first slice is stable
+3. Ship the Docker-first `guy sandbox` surface on top of the same payload/runtime contract
+4. Deepen provider auth/state detection for Claude and Codex
+5. Add safer drift reporting and support-bundle diagnostics
+6. Package Paperclip and connector health on top of the local runtime once the Pi-first slice is stable
 
 ## One-command install shape
 

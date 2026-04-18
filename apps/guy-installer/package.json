@@ -19,6 +19,7 @@
     "@the-guy/auth-codex": "workspace:*",
     "@the-guy/core": "workspace:*",
     "@the-guy/doctor": "workspace:*",
-    "@the-guy/profile-schema": "workspace:*"
+    "@the-guy/profile-schema": "workspace:*",
+    "@the-guy/sandbox": "workspace:*"
   }
 }

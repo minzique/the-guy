@@ -29,8 +29,9 @@ test("resolveGuyPaths respects an explicit home directory", () => {
   assert.equal(paths.doctorLogFile, "/tmp/the-guy-home/.guy/logs/doctor.log");
 });
 
-test("detectSupportedPlatform recognizes WSL separately from generic linux", () => {
+test("detectSupportedPlatform recognizes sandboxed linux separately from WSL and generic linux", () => {
   assert.equal(detectSupportedPlatform("linux", {}), null);
+  assert.equal(detectSupportedPlatform("linux", { GUY_SANDBOX: "1" }), "linux-container");
   assert.equal(detectSupportedPlatform("linux", { WSL_DISTRO_NAME: "Ubuntu" }), "linux-wsl");
 });
 

@@ -21,9 +21,9 @@ This plan intentionally **does not** make OpenShell or macOS-guest virtualizatio
 ## Progress
 
 - [x] (2026-04-18 10:39Z) Create the exec plan on `feat/dual-runtime-sandbox` and lock the initial architecture direction
-- [ ] Freeze the shared runtime contract, capability model, and v0 backend decisions in repo docs
-- [ ] Add the sandbox package boundary, state model, and CLI command surface for `guy sandbox`
-- [ ] Implement the local Docker sandbox flow with warm-container attach, exec, stop, and doctor coverage
+- [x] (2026-04-18 11:05Z) Freeze the shared runtime contract, capability model, and v0 backend decisions in `docs/rfcs/RFC-004-dual-runtime-native-and-docker-sandbox.md`
+- [x] (2026-04-18 11:07Z) Add the sandbox package boundary, state model, and CLI command surface for `guy sandbox`
+- [x] (2026-04-18 11:10Z) Implement the local Docker sandbox flow with warm-container image build, start, status, exec, stop, and doctor coverage
 - [ ] Extend release artifacts and CI so the same runtime can be turned into a reusable sandbox image and used remotely
 - [ ] Implement the remote SSH + Docker host flow and a Paperclip-friendly non-interactive sandbox execution surface
 - [ ] Run end-to-end validation, update docs, and capture the compaction / handoff loop so implementation can continue safely across sessions
@@ -32,8 +32,10 @@ This plan intentionally **does not** make OpenShell or macOS-guest virtualizatio
 
 - The pack-first branch already moved the shipped Pi payload into `/Users/minzi/Developer/the-guy/packages/guy-pi-pack/`, so the dual-runtime work should build on that branch rather than re-deriving payload ownership from `profiles/power-user/assets/`.
 - The existing release artifact builder at `/Users/minzi/Developer/the-guy/scripts/build-release-bundle.mjs` already knows how to copy raw pack assets into the bundle. That is the right seam for generating or packaging a sandbox image later.
-- The current runtime can install Pi on demand via profile `binaryRequirements`, but that path still assumes a mutable host environment. The sandbox flow needs an explicit decision about whether Pi is baked into the image, installed on first boot inside persistent sandbox state, or both.
-- Existing The Guy tests already rely on `GUY_HOME` temp homes and bundle-based smoke tests, which makes them a good base for sandbox smoke coverage without creating fake user accounts.
+- The current runtime can install Pi on demand via profile `binaryRequirements`, but that path still assumes a mutable host environment. The implemented Docker v0 slice solved this by baking Pi into the sandbox image and then running `guy install` / `guy repair` inside the container's own home volume.
+- Existing The Guy tests already rely on `GUY_HOME` temp homes and bundle-based smoke tests, which made it straightforward to add sandbox unit/CLI coverage without creating fake user accounts.
+- The repo checkout itself is not a valid runtime-image context, because the bundle layout (`bin/guy` + root `node_modules/@the-guy/**`) only exists after `scripts/build-release-bundle.mjs`. The Docker sandbox now rebuilds that local bundle context before image assembly when running from the repo.
+- The first Docker image attempt symlinked `/usr/local/bin/guy` to the bundled `bin/guy`, but that launcher resolves relative to `$0` and therefore broke inside the container (`/usr/local/apps/...`). The fix was to generate a container-local wrapper script with an absolute `/opt/the-guy/apps/guy-installer/dist/cli.js` target.
 - The agent harness `subagent` calls completed successfully but returned empty payloads, so the opposite-opinion pass must be preserved in this plan directly instead of relying on the returned text as the only record.
 
 ## Decision Log
@@ -43,6 +45,9 @@ This plan intentionally **does not** make OpenShell or macOS-guest virtualizatio
 - Ship **Docker-first** for v0 sandboxing. It is the shortest path to a working local + remote story, keeps local interaction low-latency, and is easier to validate end-to-end than OpenShell-first or macOS-guest-first.
 - Use a **driver abstraction** from day one so Docker is the first backend, not the only backend. OpenShell and VM/microVM backends remain later-compatible choices.
 - Prefer a **spawned Docker CLI wrapper** over a heavy Docker SDK for v0. The sandbox UX needs robust `run`, `exec`, `attach`, `cp`, `inspect`, and `logs` behavior. Spawning `docker` with argv arrays keeps behavior close to what developers debug manually, avoids shell injection, and avoids the streaming edge cases that often show up in daemon-API wrappers.
+- Introduce an explicit `linux-container` runtime platform so The Guy can run inside a Docker-backed Linux sandbox without pretending that native host support has broadened to arbitrary Linux machines.
+- Use a **bundle-style runtime image context** for the first Docker CLI slice. Repo checkouts rebuild `.artifacts/the-guy-<version>/` before image assembly so the image uses the same runtime layout as the shipped bundle.
+- Bake `pi` into the Docker image and bootstrap the sandbox home by running `guy install` / `guy repair` inside the container, rather than rendering host-side files into a bind-mounted fake home.
 - Defer **OpenShell backend implementation** until the shared contract exists and the Docker path proves the product surface. OpenShell remains a strong future hardening backend.
 - Defer **macOS guest mode** to a later high-isolation/testing slice. It is valuable for true macOS semantics, but it is the wrong first default for a lightweight sandbox story.
 - Add an explicit **compaction / handoff loop** to this plan so the implementation can survive long-running sessions without losing branch state, plan state, or validation state.
@@ -78,10 +83,11 @@ This plan intentionally **does not** make OpenShell or macOS-guest virtualizatio
 
 ### Current state that matters for this feature
 - `guy install`, `guy status`, `guy doctor`, and `guy repair` already work against a real home directory.
+- `guy sandbox start|status|shell|exec|stop|doctor` now exist on `feat/dual-runtime-sandbox` with a dedicated `@the-guy/sandbox` package and a Docker-backed local driver.
 - The shipped `power-user` profile already references a canonical Pi pack through `piPack`.
 - The current runtime writes managed files under `~/.guy/**` and rendered Pi files under `~/.pi/**`.
-- The release bundle already contains The Guy app code, workspace package dist files, profile manifests, and Pi pack raw assets.
-- No current command exists for sandbox lifecycle, image building, remote execution, or capability declaration.
+- The release bundle now includes the sandbox package and Dockerfile so the same bundle-style layout can be used as the first image build context.
+- Remote execution, OCI publish, and SSH-host support are still not implemented.
 
 ### Terms used in this plan
 - **Payload**: The versioned The Guy runtime content — CLI code, profile metadata, pack metadata, raw pack assets, and docs bundled into a release.

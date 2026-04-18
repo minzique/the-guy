@@ -17,7 +17,8 @@ const workspacePackages = [
   "guy-profile-schema",
   "guy-pi-pack",
   "guy-auth-claude",
-  "guy-auth-codex"
+  "guy-auth-codex",
+  "guy-sandbox"
 ];
 
 function shouldIncludeDistEntry(sourcePath) {
@@ -46,7 +47,7 @@ rmSync(bundleDir, { force: true, recursive: true });
 mkdirSync(artifactRoot, { recursive: true });
 mkdirSync(bundleDir, { recursive: true });
 
-for (const relativePath of ["README.md", "package.json", "install.sh", "apps/guy-installer/package.json", "profiles"]) {
+for (const relativePath of ["README.md", "package.json", "install.sh", "apps/guy-installer/package.json", "profiles", "docker"]) {
   const source = path.join(rootDir, relativePath);
   if (!existsSync(source)) {
     continue;

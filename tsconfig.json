@@ -7,6 +7,7 @@
     { "path": "./packages/guy-auth-claude" },
     { "path": "./packages/guy-auth-codex" },
     { "path": "./packages/guy-doctor" },
+    { "path": "./packages/guy-sandbox" },
     { "path": "./apps/guy-installer" }
   ]
 }
