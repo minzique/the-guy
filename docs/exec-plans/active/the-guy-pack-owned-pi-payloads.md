@@ -17,18 +17,20 @@ This plan starts with architecture freeze and docs, then moves into pack extract
 - [x] (2026-04-13 14:54Z) Write a clean exec plan and freeze the problem statement for pack-owned Pi payloads
 - [x] (2026-04-13 14:54Z) Write RFC-003 for `guy-pi-pack`, override layering, compatibility, and publish/sync rules
 - [x] (2026-04-13 14:54Z) Generate an HTML review doc that explains the RFC visually for human review
-- [ ] Add pack manifest/types/schema support in `packages/guy-profile-schema`
-- [ ] Introduce `packages/guy-pi-pack/` with the current Pi payload slice moved out of `profiles/power-user/assets/`
-- [ ] Refactor `packages/guy-core` to render pack defaults + user overrides into disposable `~/.pi/**` output with a per-asset ledger
-- [ ] Update `guy-doctor`, `guy repair`, and release bundling for the new contract
-- [ ] Run regression tests and a fuller dogfood smoke flow against the pack-first artifact
+- [x] (2026-04-18 08:18Z) Add pack manifest/types/schema support in `packages/guy-profile-schema`
+- [x] (2026-04-18 08:18Z) Introduce `packages/guy-pi-pack/` and make `profiles/power-user/assets/` a generated compatibility mirror
+- [x] (2026-04-18 08:18Z) Switch runtime + release bundling to prefer pack-backed assets with legacy profile fallback
+- [ ] Add override layering + a per-asset ledger to `packages/guy-core`, `packages/guy-doctor`, and `guy repair`
+- [ ] Run regression tests plus an override-aware dogfood smoke flow against the next artifact
 
 ## Surprises & Discoveries
 
 - The current runtime is already farther along than the older v0.1 dogfood plan text suggests. The repo has working TS packages, tests, and a release bundle, but the plan file still describes parts of the repo as scaffold-only.
 - `profiles/power-user/assets.json` currently owns concrete Pi payload files directly. That is good enough for v0.1, but it is the wrong long-term boundary for reusable or publishable Pi payloads.
 - The current release bundle copies the entire `profiles/` tree plus built workspace packages. That means a future pack package must either be copied into the artifact explicitly or resolved through a runtime-friendly path inside the bundle.
+- The first implementation slice that actually fits is narrower than the full RFC: make `packages/guy-pi-pack/` the canonical shipped payload boundary, keep `profiles/power-user/assets/` as a generated mirror, and defer override layering + the per-asset ledger until the pack package is proven end-to-end.
 - `packages/guy-core/src/index.ts` currently resolves assets from `profiles/<id>/assets.json`, copies them straight into home-directory targets, and writes only a minimal rendered metadata file. That is not enough to reason about override ownership or drift.
+- The repo state changed materially after the original plan draft: `minzique/the-guy` now exists publicly, `v0.1.0` shipped from GitHub Actions, and this work is happening on `feat/pack-owned-pi-payloads` in `/Users/minzi/Developer/the-guy-pack-owned-pi-payloads`.
 - Parallel subagent review converged on the same conclusion: the repo split should wait, `~/.pi/**` must be disposable render output, and profiles must not grow into a dependency solver.
 - A final RFC review found no critical issues; only three clarifications were needed: the ledger must record the winning source per asset id, override discovery should mirror destination paths under the override tree, and `assetManifest` cannot remain permanently required in the schema.
 
@@ -41,6 +43,7 @@ This plan starts with architecture freeze and docs, then moves into pack extract
 - Profiles stay simple presets. They should reference one primary Pi pack, not become a dependency solver.
 - External npm publishing is a later capability, not a requirement for phase one of this packaging work.
 - RFC-003 and the review HTML are the architecture freeze for this phase; implementation should now follow the documented contract instead of ad-hoc pack extraction.
+- De-risk the first implementation slice: land the pack boundary and pack-first runtime resolution now, but defer override layering and the full per-asset ledger until the pack package is proven end-to-end.
 
 ## Outcomes & Retrospective
 
@@ -50,8 +53,9 @@ This plan starts with architecture freeze and docs, then moves into pack extract
 
 ### Repo and branch
 - Product repo: `/Users/minzi/Developer/the-guy`
-- Current branch: `docs/rfc-bootstrap`
-- Important git note: the repo currently has no initial commit, so `git status` shows the whole tree as untracked. Use the filesystem as truth.
+- Active implementation worktree: `/Users/minzi/Developer/the-guy-pack-owned-pi-payloads`
+- Current branch: `feat/pack-owned-pi-payloads`
+- Important git note: the repo is now a real public git repo (`minzique/the-guy`) with `main` and `v0.1.0` already shipped. This plan is continuing on a feature worktree, not from an uncommitted scaffold.
 
 ### Existing runtime/design files
 - Product RFC: `/Users/minzi/Developer/the-guy/docs/rfcs/RFC-001-the-guy-managed-agent-harness-distribution.md`
