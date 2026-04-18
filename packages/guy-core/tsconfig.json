@@ -5,5 +5,5 @@
     "outDir": "dist"
   },
   "include": ["src/**/*.ts"],
-  "references": [{ "path": "../guy-profile-schema" }]
+  "references": [{ "path": "../guy-profile-schema" }, { "path": "../guy-pi-pack" }]
 }
