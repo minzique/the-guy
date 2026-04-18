@@ -69,7 +69,7 @@ jobs:
           generate_release_notes: true
           fail_on_unmatched_files: true
 
-      - name: Update changelog from release notes
+      - name: Update changelog and pages site from release notes
         env:
           GH_TOKEN: ${{ github.token }}
           DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
@@ -82,12 +82,13 @@ jobs:
           git switch -C "$DEFAULT_BRANCH" "origin/$DEFAULT_BRANCH"
           gh release view "$TAG" --repo "$REPOSITORY" --json tagName,url,publishedAt,body > .artifacts/release.json
           node ./scripts/update-changelog-from-release.mjs --release-json .artifacts/release.json
-          if git diff --quiet -- CHANGELOG.md; then
-            echo "CHANGELOG.md is already up to date."
+          node ./scripts/build-pages-site.mjs
+          if git diff --quiet -- CHANGELOG.md site/index.html; then
+            echo "CHANGELOG.md and site/index.html are already up to date."
             exit 0
           fi
-          git add CHANGELOG.md
-          git commit -m "docs(changelog): $TAG"
+          git add CHANGELOG.md site/index.html
+          git commit -m "docs(site): refresh release notes for $TAG"
           if ! git push origin HEAD:"$DEFAULT_BRANCH"; then
-            echo "::warning::Failed to push CHANGELOG.md back to $DEFAULT_BRANCH. Release assets were published, but branch protection may require a manual follow-up or a workflow exemption for github-actions[bot]."
+            echo "::warning::Failed to push CHANGELOG.md and site/index.html back to $DEFAULT_BRANCH. Release assets were published, but branch protection may require a manual follow-up or a workflow exemption for github-actions[bot]."
           fi

@@ -9,7 +9,7 @@ export type UiMode = (typeof UI_MODES)[number];
 export const PROFILE_STATUSES = ["internal", "shipping", "deferred"] as const;
 export type ProfileStatus = (typeof PROFILE_STATUSES)[number];
 
-export const SUPPORTED_PLATFORMS = ["darwin", "linux-wsl"] as const;
+export const SUPPORTED_PLATFORMS = ["darwin", "linux-wsl", "linux-container"] as const;
 export type SupportedPlatform = (typeof SUPPORTED_PLATFORMS)[number];
 
 export const MANAGED_TOOLS = ["claude", "codex", "pi", "gh"] as const;
@@ -63,6 +63,23 @@ export interface GuyAssetManifest {
   assets: ManagedAsset[];
 }
 
+export interface GuyPiPackReference {
+  id: string;
+  version: string;
+}
+
+export interface GuyPackManifest {
+  version: "0.1";
+  id: string;
+  displayName: string;
+  packageName: string;
+  packVersion: string;
+  minimumRuntimeVersion: string;
+  maximumTestedRuntimeVersion: string;
+  assets: ManagedAsset[];
+  postInstall?: PostInstallTask[];
+}
+
 export interface GuyProfileManifest {
   version: "0.1";
   id: string;
@@ -76,7 +93,8 @@ export interface GuyProfileManifest {
   selectable: boolean;
   managedTools: ManagedTool[];
   binaryRequirements: BinaryRequirement[];
-  assetManifest: string;
+  piPack?: GuyPiPackReference;
+  assetManifest?: string;
   doctorChecks: DoctorCheckId[];
   postInstall?: PostInstallTask[];
 }
@@ -98,6 +116,10 @@ export function getProfileSchemaPath(): string {
 
 export function getAssetsSchemaPath(): string {
   return fileURLToPath(new URL("../schema/assets.schema.json", import.meta.url));
+}
+
+export function getPackSchemaPath(): string {
+  return fileURLToPath(new URL("../schema/pack.schema.json", import.meta.url));
 }
 
 export function isSelectableProfile(profile: Pick<GuyProfileManifest, "selectable" | "status">): boolean {

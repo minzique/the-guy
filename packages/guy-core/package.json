@@ -18,6 +18,7 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@the-guy/profile-schema": "workspace:*"
+    "@the-guy/profile-schema": "workspace:*",
+    "@the-guy/pi-pack": "workspace:*"
   }
 }

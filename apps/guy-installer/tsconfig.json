@@ -10,6 +10,7 @@
     { "path": "../../packages/guy-auth-claude" },
     { "path": "../../packages/guy-auth-codex" },
     { "path": "../../packages/guy-doctor" },
-    { "path": "../../packages/guy-profile-schema" }
+    { "path": "../../packages/guy-profile-schema" },
+    { "path": "../../packages/guy-sandbox" }
   ]
 }

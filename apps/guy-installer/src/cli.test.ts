@@ -14,7 +14,8 @@ test("CLI install writes state and copies the first shipped assets", () => {
     ...process.env,
     GUY_HOME: tempHome,
     GUY_SKIP_MANAGED_INSTALLS: "1",
-    GUY_SKIP_PI_PACKAGE_SYNC: "1"
+    GUY_SKIP_PI_PACKAGE_SYNC: "1",
+    GUY_SKIP_POST_INSTALL: "1"
   };
 
   const install = spawnSync(process.execPath, [cliPath, "install"], {
@@ -61,7 +62,8 @@ test("CLI repair restores a deleted managed asset", () => {
     ...process.env,
     GUY_HOME: tempHome,
     GUY_SKIP_MANAGED_INSTALLS: "1",
-    GUY_SKIP_PI_PACKAGE_SYNC: "1"
+    GUY_SKIP_PI_PACKAGE_SYNC: "1",
+    GUY_SKIP_POST_INSTALL: "1"
   };
   const scoutAgentPath = path.join(tempHome, ".pi", "agent", "agents", "scout.md");
 
@@ -81,4 +83,19 @@ test("CLI repair restores a deleted managed asset", () => {
 
   assert.match(String(repair.status), /^(0|1)$/);
   assert.equal(existsSync(scoutAgentPath), true);
+});
+
+test("CLI sandbox status prints sandbox metadata even when Docker is unavailable", () => {
+  const tempHome = mkdtempSync(path.join(os.tmpdir(), "the-guy-cli-sandbox-"));
+  const status = spawnSync(process.execPath, [cliPath, "sandbox", "status"], {
+    env: {
+      ...process.env,
+      GUY_HOME: tempHome
+    },
+    encoding: "utf8"
+  });
+
+  assert.equal(status.status, 0, status.stderr);
+  assert.match(status.stdout, /sandbox: default/);
+  assert.match(status.stdout, /driver: docker-local/);
 });

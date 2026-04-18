@@ -5,7 +5,7 @@
   "description": "Internal shared runtime defaults for The Guy v0.1.",
   "status": "internal",
   "inherits": [],
-  "supportedPlatforms": ["darwin"],
+  "supportedPlatforms": ["darwin", "linux-container"],
   "uiMode": "standard",
   "channel": "dogfood",
   "selectable": false,

@@ -2,10 +2,12 @@
   "files": [],
   "references": [
     { "path": "./packages/guy-profile-schema" },
+    { "path": "./packages/guy-pi-pack" },
     { "path": "./packages/guy-core" },
     { "path": "./packages/guy-auth-claude" },
     { "path": "./packages/guy-auth-codex" },
     { "path": "./packages/guy-doctor" },
+    { "path": "./packages/guy-sandbox" },
     { "path": "./apps/guy-installer" }
   ]
 }

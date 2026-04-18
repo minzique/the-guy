@@ -1,0 +1,1944 @@
+{
+  "version": "0.1",
+  "id": "pi-pack",
+  "displayName": "The Guy Pi Pack",
+  "packageName": "@the-guy/pi-pack",
+  "packVersion": "0.1.0",
+  "minimumRuntimeVersion": "0.1.0",
+  "maximumTestedRuntimeVersion": "0.1.x",
+  "assets": [
+    {
+      "id": "pi-agent-agents-md",
+      "source": "./assets/.pi/agent/AGENTS.md",
+      "destination": "~/.pi/agent/AGENTS.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-agents-planner-md",
+      "source": "./assets/.pi/agent/agents/planner.md",
+      "destination": "~/.pi/agent/agents/planner.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-agents-reviewer-md",
+      "source": "./assets/.pi/agent/agents/reviewer.md",
+      "destination": "~/.pi/agent/agents/reviewer.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-agents-scout-md",
+      "source": "./assets/.pi/agent/agents/scout.md",
+      "destination": "~/.pi/agent/agents/scout.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-agents-worker-md",
+      "source": "./assets/.pi/agent/agents/worker.md",
+      "destination": "~/.pi/agent/agents/worker.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-extensions-shared-feature-flags-ts",
+      "source": "./assets/.pi/agent/extensions/_shared/feature-flags.ts",
+      "destination": "~/.pi/agent/extensions/_shared/feature-flags.ts",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-extensions-context-awareness-ts",
+      "source": "./assets/.pi/agent/extensions/context-awareness.ts",
+      "destination": "~/.pi/agent/extensions/context-awareness.ts",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-extensions-session-browser-index-ts",
+      "source": "./assets/.pi/agent/extensions/session-browser/index.ts",
+      "destination": "~/.pi/agent/extensions/session-browser/index.ts",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-extensions-subagent-agents-ts",
+      "source": "./assets/.pi/agent/extensions/subagent/agents.ts",
+      "destination": "~/.pi/agent/extensions/subagent/agents.ts",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-extensions-subagent-index-ts",
+      "source": "./assets/.pi/agent/extensions/subagent/index.ts",
+      "destination": "~/.pi/agent/extensions/subagent/index.ts",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-prompts-feature-md",
+      "source": "./assets/.pi/agent/prompts/feature.md",
+      "destination": "~/.pi/agent/prompts/feature.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-prompts-implement-and-review-md",
+      "source": "./assets/.pi/agent/prompts/implement-and-review.md",
+      "destination": "~/.pi/agent/prompts/implement-and-review.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-prompts-implement-md",
+      "source": "./assets/.pi/agent/prompts/implement.md",
+      "destination": "~/.pi/agent/prompts/implement.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-prompts-scout-and-plan-md",
+      "source": "./assets/.pi/agent/prompts/scout-and-plan.md",
+      "destination": "~/.pi/agent/prompts/scout-and-plan.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-prompts-worktree-md",
+      "source": "./assets/.pi/agent/prompts/worktree.md",
+      "destination": "~/.pi/agent/prompts/worktree.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-settings-json",
+      "source": "./assets/.pi/agent/settings.json",
+      "destination": "~/.pi/agent/settings.json",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-assets-templates-template-md",
+      "source": "./assets/.pi/agent/skills/clean-code/assets/templates/_template.md",
+      "destination": "~/.pi/agent/skills/clean-code/assets/templates/_template.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-references-sections-md",
+      "source": "./assets/.pi/agent/skills/clean-code/references/_sections.md",
+      "destination": "~/.pi/agent/skills/clean-code/references/_sections.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-references-bound-learning-tests-md",
+      "source": "./assets/.pi/agent/skills/clean-code/references/bound-learning-tests.md",
+      "destination": "~/.pi/agent/skills/clean-code/references/bound-learning-tests.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-references-bound-wrap-third-party-md",
+      "source": "./assets/.pi/agent/skills/clean-code/references/bound-wrap-third-party.md",
+      "destination": "~/.pi/agent/skills/clean-code/references/bound-wrap-third-party.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-references-class-cohesion-md",
+      "source": "./assets/.pi/agent/skills/clean-code/references/class-cohesion.md",
+      "destination": "~/.pi/agent/skills/clean-code/references/class-cohesion.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-references-class-isolate-from-change-md",
+      "source": "./assets/.pi/agent/skills/clean-code/references/class-isolate-from-change.md",
+      "destination": "~/.pi/agent/skills/clean-code/references/class-isolate-from-change.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-references-class-organize-for-change-md",
+      "source": "./assets/.pi/agent/skills/clean-code/references/class-organize-for-change.md",
+      "destination": "~/.pi/agent/skills/clean-code/references/class-organize-for-change.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-references-class-separate-concerns-md",
+      "source": "./assets/.pi/agent/skills/clean-code/references/class-separate-concerns.md",
+      "destination": "~/.pi/agent/skills/clean-code/references/class-separate-concerns.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-references-class-small-md",
+      "source": "./assets/.pi/agent/skills/clean-code/references/class-small.md",
+      "destination": "~/.pi/agent/skills/clean-code/references/class-small.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-references-cmt-avoid-commented-out-code-md",
+      "source": "./assets/.pi/agent/skills/clean-code/references/cmt-avoid-commented-out-code.md",
+      "destination": "~/.pi/agent/skills/clean-code/references/cmt-avoid-commented-out-code.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-references-cmt-avoid-redundant-md",
+      "source": "./assets/.pi/agent/skills/clean-code/references/cmt-avoid-redundant.md",
+      "destination": "~/.pi/agent/skills/clean-code/references/cmt-avoid-redundant.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-references-cmt-explain-intent-md",
+      "source": "./assets/.pi/agent/skills/clean-code/references/cmt-explain-intent.md",
+      "destination": "~/.pi/agent/skills/clean-code/references/cmt-explain-intent.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-references-cmt-express-in-code-md",
+      "source": "./assets/.pi/agent/skills/clean-code/references/cmt-express-in-code.md",
+      "destination": "~/.pi/agent/skills/clean-code/references/cmt-express-in-code.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-references-cmt-warning-consequences-md",
+      "source": "./assets/.pi/agent/skills/clean-code/references/cmt-warning-consequences.md",
+      "destination": "~/.pi/agent/skills/clean-code/references/cmt-warning-consequences.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-references-emerge-expressiveness-md",
+      "source": "./assets/.pi/agent/skills/clean-code/references/emerge-expressiveness.md",
+      "destination": "~/.pi/agent/skills/clean-code/references/emerge-expressiveness.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-references-emerge-simple-design-md",
+      "source": "./assets/.pi/agent/skills/clean-code/references/emerge-simple-design.md",
+      "destination": "~/.pi/agent/skills/clean-code/references/emerge-simple-design.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-references-err-avoid-null-md",
+      "source": "./assets/.pi/agent/skills/clean-code/references/err-avoid-null.md",
+      "destination": "~/.pi/agent/skills/clean-code/references/err-avoid-null.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-references-err-define-by-caller-needs-md",
+      "source": "./assets/.pi/agent/skills/clean-code/references/err-define-by-caller-needs.md",
+      "destination": "~/.pi/agent/skills/clean-code/references/err-define-by-caller-needs.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-references-err-provide-context-md",
+      "source": "./assets/.pi/agent/skills/clean-code/references/err-provide-context.md",
+      "destination": "~/.pi/agent/skills/clean-code/references/err-provide-context.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-references-err-use-exceptions-md",
+      "source": "./assets/.pi/agent/skills/clean-code/references/err-use-exceptions.md",
+      "destination": "~/.pi/agent/skills/clean-code/references/err-use-exceptions.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-references-err-write-try-catch-first-md",
+      "source": "./assets/.pi/agent/skills/clean-code/references/err-write-try-catch-first.md",
+      "destination": "~/.pi/agent/skills/clean-code/references/err-write-try-catch-first.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-references-fmt-horizontal-alignment-md",
+      "source": "./assets/.pi/agent/skills/clean-code/references/fmt-horizontal-alignment.md",
+      "destination": "~/.pi/agent/skills/clean-code/references/fmt-horizontal-alignment.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-references-fmt-indentation-md",
+      "source": "./assets/.pi/agent/skills/clean-code/references/fmt-indentation.md",
+      "destination": "~/.pi/agent/skills/clean-code/references/fmt-indentation.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-references-fmt-team-rules-md",
+      "source": "./assets/.pi/agent/skills/clean-code/references/fmt-team-rules.md",
+      "destination": "~/.pi/agent/skills/clean-code/references/fmt-team-rules.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-references-fmt-vertical-formatting-md",
+      "source": "./assets/.pi/agent/skills/clean-code/references/fmt-vertical-formatting.md",
+      "destination": "~/.pi/agent/skills/clean-code/references/fmt-vertical-formatting.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-references-func-abstraction-level-md",
+      "source": "./assets/.pi/agent/skills/clean-code/references/func-abstraction-level.md",
+      "destination": "~/.pi/agent/skills/clean-code/references/func-abstraction-level.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-references-func-command-query-separation-md",
+      "source": "./assets/.pi/agent/skills/clean-code/references/func-command-query-separation.md",
+      "destination": "~/.pi/agent/skills/clean-code/references/func-command-query-separation.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-references-func-dry-md",
+      "source": "./assets/.pi/agent/skills/clean-code/references/func-dry.md",
+      "destination": "~/.pi/agent/skills/clean-code/references/func-dry.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-references-func-minimize-arguments-md",
+      "source": "./assets/.pi/agent/skills/clean-code/references/func-minimize-arguments.md",
+      "destination": "~/.pi/agent/skills/clean-code/references/func-minimize-arguments.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-references-func-no-side-effects-md",
+      "source": "./assets/.pi/agent/skills/clean-code/references/func-no-side-effects.md",
+      "destination": "~/.pi/agent/skills/clean-code/references/func-no-side-effects.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-references-func-one-thing-md",
+      "source": "./assets/.pi/agent/skills/clean-code/references/func-one-thing.md",
+      "destination": "~/.pi/agent/skills/clean-code/references/func-one-thing.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-references-func-small-md",
+      "source": "./assets/.pi/agent/skills/clean-code/references/func-small.md",
+      "destination": "~/.pi/agent/skills/clean-code/references/func-small.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-references-name-avoid-disinformation-md",
+      "source": "./assets/.pi/agent/skills/clean-code/references/name-avoid-disinformation.md",
+      "destination": "~/.pi/agent/skills/clean-code/references/name-avoid-disinformation.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-references-name-avoid-encodings-md",
+      "source": "./assets/.pi/agent/skills/clean-code/references/name-avoid-encodings.md",
+      "destination": "~/.pi/agent/skills/clean-code/references/name-avoid-encodings.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-references-name-class-noun-md",
+      "source": "./assets/.pi/agent/skills/clean-code/references/name-class-noun.md",
+      "destination": "~/.pi/agent/skills/clean-code/references/name-class-noun.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-references-name-intention-revealing-md",
+      "source": "./assets/.pi/agent/skills/clean-code/references/name-intention-revealing.md",
+      "destination": "~/.pi/agent/skills/clean-code/references/name-intention-revealing.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-references-name-meaningful-distinctions-md",
+      "source": "./assets/.pi/agent/skills/clean-code/references/name-meaningful-distinctions.md",
+      "destination": "~/.pi/agent/skills/clean-code/references/name-meaningful-distinctions.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-references-name-method-verb-md",
+      "source": "./assets/.pi/agent/skills/clean-code/references/name-method-verb.md",
+      "destination": "~/.pi/agent/skills/clean-code/references/name-method-verb.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-references-name-pronounceable-md",
+      "source": "./assets/.pi/agent/skills/clean-code/references/name-pronounceable.md",
+      "destination": "~/.pi/agent/skills/clean-code/references/name-pronounceable.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-references-name-searchable-md",
+      "source": "./assets/.pi/agent/skills/clean-code/references/name-searchable.md",
+      "destination": "~/.pi/agent/skills/clean-code/references/name-searchable.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-references-obj-avoid-hybrids-md",
+      "source": "./assets/.pi/agent/skills/clean-code/references/obj-avoid-hybrids.md",
+      "destination": "~/.pi/agent/skills/clean-code/references/obj-avoid-hybrids.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-references-obj-data-abstraction-md",
+      "source": "./assets/.pi/agent/skills/clean-code/references/obj-data-abstraction.md",
+      "destination": "~/.pi/agent/skills/clean-code/references/obj-data-abstraction.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-references-obj-data-object-asymmetry-md",
+      "source": "./assets/.pi/agent/skills/clean-code/references/obj-data-object-asymmetry.md",
+      "destination": "~/.pi/agent/skills/clean-code/references/obj-data-object-asymmetry.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-references-obj-dto-md",
+      "source": "./assets/.pi/agent/skills/clean-code/references/obj-dto.md",
+      "destination": "~/.pi/agent/skills/clean-code/references/obj-dto.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-references-obj-law-of-demeter-md",
+      "source": "./assets/.pi/agent/skills/clean-code/references/obj-law-of-demeter.md",
+      "destination": "~/.pi/agent/skills/clean-code/references/obj-law-of-demeter.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-references-test-build-operate-check-md",
+      "source": "./assets/.pi/agent/skills/clean-code/references/test-build-operate-check.md",
+      "destination": "~/.pi/agent/skills/clean-code/references/test-build-operate-check.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-references-test-first-law-md",
+      "source": "./assets/.pi/agent/skills/clean-code/references/test-first-law.md",
+      "destination": "~/.pi/agent/skills/clean-code/references/test-first-law.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-references-test-first-principles-md",
+      "source": "./assets/.pi/agent/skills/clean-code/references/test-first-principles.md",
+      "destination": "~/.pi/agent/skills/clean-code/references/test-first-principles.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-references-test-keep-clean-md",
+      "source": "./assets/.pi/agent/skills/clean-code/references/test-keep-clean.md",
+      "destination": "~/.pi/agent/skills/clean-code/references/test-keep-clean.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-references-test-one-assert-md",
+      "source": "./assets/.pi/agent/skills/clean-code/references/test-one-assert.md",
+      "destination": "~/.pi/agent/skills/clean-code/references/test-one-assert.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-clean-code-skill-md",
+      "source": "./assets/.pi/agent/skills/clean-code/SKILL.md",
+      "destination": "~/.pi/agent/skills/clean-code/SKILL.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-code-reviewer-skill-md",
+      "source": "./assets/.pi/agent/skills/code-reviewer/SKILL.md",
+      "destination": "~/.pi/agent/skills/code-reviewer/SKILL.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-agents-md",
+      "source": "./assets/.pi/agent/skills/debug/AGENTS.md",
+      "destination": "~/.pi/agent/skills/debug/AGENTS.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-assets-templates-template-md",
+      "source": "./assets/.pi/agent/skills/debug/assets/templates/_template.md",
+      "destination": "~/.pi/agent/skills/debug/assets/templates/_template.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-readme-md",
+      "source": "./assets/.pi/agent/skills/debug/README.md",
+      "destination": "~/.pi/agent/skills/debug/README.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-sections-md",
+      "source": "./assets/.pi/agent/skills/debug/references/_sections.md",
+      "destination": "~/.pi/agent/skills/debug/references/_sections.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-anti-blame-tool-md",
+      "source": "./assets/.pi/agent/skills/debug/references/anti-blame-tool.md",
+      "destination": "~/.pi/agent/skills/debug/references/anti-blame-tool.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-anti-debug-fatigue-md",
+      "source": "./assets/.pi/agent/skills/debug/references/anti-debug-fatigue.md",
+      "destination": "~/.pi/agent/skills/debug/references/anti-debug-fatigue.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-anti-quick-patch-md",
+      "source": "./assets/.pi/agent/skills/debug/references/anti-quick-patch.md",
+      "destination": "~/.pi/agent/skills/debug/references/anti-quick-patch.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-anti-shotgun-debugging-md",
+      "source": "./assets/.pi/agent/skills/debug/references/anti-shotgun-debugging.md",
+      "destination": "~/.pi/agent/skills/debug/references/anti-shotgun-debugging.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-anti-tunnel-vision-md",
+      "source": "./assets/.pi/agent/skills/debug/references/anti-tunnel-vision.md",
+      "destination": "~/.pi/agent/skills/debug/references/anti-tunnel-vision.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-hypo-binary-search-md",
+      "source": "./assets/.pi/agent/skills/debug/references/hypo-binary-search.md",
+      "destination": "~/.pi/agent/skills/debug/references/hypo-binary-search.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-hypo-one-change-at-time-md",
+      "source": "./assets/.pi/agent/skills/debug/references/hypo-one-change-at-time.md",
+      "destination": "~/.pi/agent/skills/debug/references/hypo-one-change-at-time.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-hypo-rubber-duck-md",
+      "source": "./assets/.pi/agent/skills/debug/references/hypo-rubber-duck.md",
+      "destination": "~/.pi/agent/skills/debug/references/hypo-rubber-duck.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-hypo-rule-out-obvious-md",
+      "source": "./assets/.pi/agent/skills/debug/references/hypo-rule-out-obvious.md",
+      "destination": "~/.pi/agent/skills/debug/references/hypo-rule-out-obvious.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-hypo-scientific-method-md",
+      "source": "./assets/.pi/agent/skills/debug/references/hypo-scientific-method.md",
+      "destination": "~/.pi/agent/skills/debug/references/hypo-scientific-method.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-hypo-where-not-what-md",
+      "source": "./assets/.pi/agent/skills/debug/references/hypo-where-not-what.md",
+      "destination": "~/.pi/agent/skills/debug/references/hypo-where-not-what.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-obs-breakpoint-strategy-md",
+      "source": "./assets/.pi/agent/skills/debug/references/obs-breakpoint-strategy.md",
+      "destination": "~/.pi/agent/skills/debug/references/obs-breakpoint-strategy.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-obs-log-inputs-outputs-md",
+      "source": "./assets/.pi/agent/skills/debug/references/obs-log-inputs-outputs.md",
+      "destination": "~/.pi/agent/skills/debug/references/obs-log-inputs-outputs.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-obs-stack-trace-reading-md",
+      "source": "./assets/.pi/agent/skills/debug/references/obs-stack-trace-reading.md",
+      "destination": "~/.pi/agent/skills/debug/references/obs-stack-trace-reading.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-obs-strategic-logging-md",
+      "source": "./assets/.pi/agent/skills/debug/references/obs-strategic-logging.md",
+      "destination": "~/.pi/agent/skills/debug/references/obs-strategic-logging.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-obs-trace-data-flow-md",
+      "source": "./assets/.pi/agent/skills/debug/references/obs-trace-data-flow.md",
+      "destination": "~/.pi/agent/skills/debug/references/obs-trace-data-flow.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-obs-watch-expressions-md",
+      "source": "./assets/.pi/agent/skills/debug/references/obs-watch-expressions.md",
+      "destination": "~/.pi/agent/skills/debug/references/obs-watch-expressions.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-pattern-async-await-errors-md",
+      "source": "./assets/.pi/agent/skills/debug/references/pattern-async-await-errors.md",
+      "destination": "~/.pi/agent/skills/debug/references/pattern-async-await-errors.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-pattern-memory-leak-md",
+      "source": "./assets/.pi/agent/skills/debug/references/pattern-memory-leak.md",
+      "destination": "~/.pi/agent/skills/debug/references/pattern-memory-leak.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-pattern-null-pointer-md",
+      "source": "./assets/.pi/agent/skills/debug/references/pattern-null-pointer.md",
+      "destination": "~/.pi/agent/skills/debug/references/pattern-null-pointer.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-pattern-off-by-one-md",
+      "source": "./assets/.pi/agent/skills/debug/references/pattern-off-by-one.md",
+      "destination": "~/.pi/agent/skills/debug/references/pattern-off-by-one.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-pattern-race-condition-md",
+      "source": "./assets/.pi/agent/skills/debug/references/pattern-race-condition.md",
+      "destination": "~/.pi/agent/skills/debug/references/pattern-race-condition.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-pattern-timezone-issues-md",
+      "source": "./assets/.pi/agent/skills/debug/references/pattern-timezone-issues.md",
+      "destination": "~/.pi/agent/skills/debug/references/pattern-timezone-issues.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-pattern-type-coercion-md",
+      "source": "./assets/.pi/agent/skills/debug/references/pattern-type-coercion.md",
+      "destination": "~/.pi/agent/skills/debug/references/pattern-type-coercion.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-prev-defensive-coding-md",
+      "source": "./assets/.pi/agent/skills/debug/references/prev-defensive-coding.md",
+      "destination": "~/.pi/agent/skills/debug/references/prev-defensive-coding.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-prev-document-solution-md",
+      "source": "./assets/.pi/agent/skills/debug/references/prev-document-solution.md",
+      "destination": "~/.pi/agent/skills/debug/references/prev-document-solution.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-prev-improve-error-messages-md",
+      "source": "./assets/.pi/agent/skills/debug/references/prev-improve-error-messages.md",
+      "destination": "~/.pi/agent/skills/debug/references/prev-improve-error-messages.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-prev-postmortem-md",
+      "source": "./assets/.pi/agent/skills/debug/references/prev-postmortem.md",
+      "destination": "~/.pi/agent/skills/debug/references/prev-postmortem.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-prob-document-symptoms-md",
+      "source": "./assets/.pi/agent/skills/debug/references/prob-document-symptoms.md",
+      "destination": "~/.pi/agent/skills/debug/references/prob-document-symptoms.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-prob-minimal-reproduction-md",
+      "source": "./assets/.pi/agent/skills/debug/references/prob-minimal-reproduction.md",
+      "destination": "~/.pi/agent/skills/debug/references/prob-minimal-reproduction.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-prob-recent-changes-md",
+      "source": "./assets/.pi/agent/skills/debug/references/prob-recent-changes.md",
+      "destination": "~/.pi/agent/skills/debug/references/prob-recent-changes.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-prob-reproduce-before-debug-md",
+      "source": "./assets/.pi/agent/skills/debug/references/prob-reproduce-before-debug.md",
+      "destination": "~/.pi/agent/skills/debug/references/prob-reproduce-before-debug.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-prob-separate-symptoms-causes-md",
+      "source": "./assets/.pi/agent/skills/debug/references/prob-separate-symptoms-causes.md",
+      "destination": "~/.pi/agent/skills/debug/references/prob-separate-symptoms-causes.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-prob-state-expected-actual-md",
+      "source": "./assets/.pi/agent/skills/debug/references/prob-state-expected-actual.md",
+      "destination": "~/.pi/agent/skills/debug/references/prob-state-expected-actual.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-rca-examine-boundaries-md",
+      "source": "./assets/.pi/agent/skills/debug/references/rca-examine-boundaries.md",
+      "destination": "~/.pi/agent/skills/debug/references/rca-examine-boundaries.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-rca-fault-propagation-md",
+      "source": "./assets/.pi/agent/skills/debug/references/rca-fault-propagation.md",
+      "destination": "~/.pi/agent/skills/debug/references/rca-fault-propagation.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-rca-five-whys-md",
+      "source": "./assets/.pi/agent/skills/debug/references/rca-five-whys.md",
+      "destination": "~/.pi/agent/skills/debug/references/rca-five-whys.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-rca-last-known-good-md",
+      "source": "./assets/.pi/agent/skills/debug/references/rca-last-known-good.md",
+      "destination": "~/.pi/agent/skills/debug/references/rca-last-known-good.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-rca-question-assumptions-md",
+      "source": "./assets/.pi/agent/skills/debug/references/rca-question-assumptions.md",
+      "destination": "~/.pi/agent/skills/debug/references/rca-question-assumptions.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-tool-call-stack-navigation-md",
+      "source": "./assets/.pi/agent/skills/debug/references/tool-call-stack-navigation.md",
+      "destination": "~/.pi/agent/skills/debug/references/tool-call-stack-navigation.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-tool-conditional-breakpoints-md",
+      "source": "./assets/.pi/agent/skills/debug/references/tool-conditional-breakpoints.md",
+      "destination": "~/.pi/agent/skills/debug/references/tool-conditional-breakpoints.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-tool-exception-breakpoints-md",
+      "source": "./assets/.pi/agent/skills/debug/references/tool-exception-breakpoints.md",
+      "destination": "~/.pi/agent/skills/debug/references/tool-exception-breakpoints.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-tool-logpoints-md",
+      "source": "./assets/.pi/agent/skills/debug/references/tool-logpoints.md",
+      "destination": "~/.pi/agent/skills/debug/references/tool-logpoints.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-tool-memory-inspection-md",
+      "source": "./assets/.pi/agent/skills/debug/references/tool-memory-inspection.md",
+      "destination": "~/.pi/agent/skills/debug/references/tool-memory-inspection.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-tool-step-commands-md",
+      "source": "./assets/.pi/agent/skills/debug/references/tool-step-commands.md",
+      "destination": "~/.pi/agent/skills/debug/references/tool-step-commands.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-triage-duplicate-detection-md",
+      "source": "./assets/.pi/agent/skills/debug/references/triage-duplicate-detection.md",
+      "destination": "~/.pi/agent/skills/debug/references/triage-duplicate-detection.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-triage-quick-wins-first-md",
+      "source": "./assets/.pi/agent/skills/debug/references/triage-quick-wins-first.md",
+      "destination": "~/.pi/agent/skills/debug/references/triage-quick-wins-first.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-triage-reproducibility-matters-md",
+      "source": "./assets/.pi/agent/skills/debug/references/triage-reproducibility-matters.md",
+      "destination": "~/.pi/agent/skills/debug/references/triage-reproducibility-matters.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-triage-severity-vs-priority-md",
+      "source": "./assets/.pi/agent/skills/debug/references/triage-severity-vs-priority.md",
+      "destination": "~/.pi/agent/skills/debug/references/triage-severity-vs-priority.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-triage-user-impact-assessment-md",
+      "source": "./assets/.pi/agent/skills/debug/references/triage-user-impact-assessment.md",
+      "destination": "~/.pi/agent/skills/debug/references/triage-user-impact-assessment.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-verify-add-test-md",
+      "source": "./assets/.pi/agent/skills/debug/references/verify-add-test.md",
+      "destination": "~/.pi/agent/skills/debug/references/verify-add-test.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-verify-regression-check-md",
+      "source": "./assets/.pi/agent/skills/debug/references/verify-regression-check.md",
+      "destination": "~/.pi/agent/skills/debug/references/verify-regression-check.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-verify-reproduce-fix-md",
+      "source": "./assets/.pi/agent/skills/debug/references/verify-reproduce-fix.md",
+      "destination": "~/.pi/agent/skills/debug/references/verify-reproduce-fix.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-references-verify-understand-why-fix-works-md",
+      "source": "./assets/.pi/agent/skills/debug/references/verify-understand-why-fix-works.md",
+      "destination": "~/.pi/agent/skills/debug/references/verify-understand-why-fix-works.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-debug-skill-md",
+      "source": "./assets/.pi/agent/skills/debug/SKILL.md",
+      "destination": "~/.pi/agent/skills/debug/SKILL.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-dev-rfc-assets-marked-min-js",
+      "source": "./assets/.pi/agent/skills/dev-rfc/assets/marked.min.js",
+      "destination": "~/.pi/agent/skills/dev-rfc/assets/marked.min.js",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-dev-rfc-assets-mermaid-min-js",
+      "source": "./assets/.pi/agent/skills/dev-rfc/assets/mermaid.min.js",
+      "destination": "~/.pi/agent/skills/dev-rfc/assets/mermaid.min.js",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-dev-rfc-assets-review-template-html",
+      "source": "./assets/.pi/agent/skills/dev-rfc/assets/review_template.html",
+      "destination": "~/.pi/agent/skills/dev-rfc/assets/review_template.html",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-dev-rfc-package-json",
+      "source": "./assets/.pi/agent/skills/dev-rfc/package.json",
+      "destination": "~/.pi/agent/skills/dev-rfc/package.json",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-dev-rfc-references-template-md",
+      "source": "./assets/.pi/agent/skills/dev-rfc/references/template.md",
+      "destination": "~/.pi/agent/skills/dev-rfc/references/template.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-dev-rfc-scripts-generate-review-py",
+      "source": "./assets/.pi/agent/skills/dev-rfc/scripts/generate_review.py",
+      "destination": "~/.pi/agent/skills/dev-rfc/scripts/generate_review.py",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-dev-rfc-scripts-generate-review-test-ts",
+      "source": "./assets/.pi/agent/skills/dev-rfc/scripts/generate_review.test.ts",
+      "destination": "~/.pi/agent/skills/dev-rfc/scripts/generate_review.test.ts",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-dev-rfc-scripts-generate-review-ts",
+      "source": "./assets/.pi/agent/skills/dev-rfc/scripts/generate_review.ts",
+      "destination": "~/.pi/agent/skills/dev-rfc/scripts/generate_review.ts",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-dev-rfc-skill-md",
+      "source": "./assets/.pi/agent/skills/dev-rfc/SKILL.md",
+      "destination": "~/.pi/agent/skills/dev-rfc/SKILL.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-exec-plan-skill-md",
+      "source": "./assets/.pi/agent/skills/exec-plan/SKILL.md",
+      "destination": "~/.pi/agent/skills/exec-plan/SKILL.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-find-skills-skill-md",
+      "source": "./assets/.pi/agent/skills/find-skills/SKILL.md",
+      "destination": "~/.pi/agent/skills/find-skills/SKILL.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-humanizer-skill-md",
+      "source": "./assets/.pi/agent/skills/humanizer/SKILL.md",
+      "destination": "~/.pi/agent/skills/humanizer/SKILL.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-refactor-agents-md",
+      "source": "./assets/.pi/agent/skills/refactor/AGENTS.md",
+      "destination": "~/.pi/agent/skills/refactor/AGENTS.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-refactor-assets-templates-template-md",
+      "source": "./assets/.pi/agent/skills/refactor/assets/templates/_template.md",
+      "destination": "~/.pi/agent/skills/refactor/assets/templates/_template.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-refactor-readme-md",
+      "source": "./assets/.pi/agent/skills/refactor/README.md",
+      "destination": "~/.pi/agent/skills/refactor/README.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-refactor-references-sections-md",
+      "source": "./assets/.pi/agent/skills/refactor/references/_sections.md",
+      "destination": "~/.pi/agent/skills/refactor/references/_sections.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-refactor-references-cond-consolidate-md",
+      "source": "./assets/.pi/agent/skills/refactor/references/cond-consolidate.md",
+      "destination": "~/.pi/agent/skills/refactor/references/cond-consolidate.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-refactor-references-cond-decompose-md",
+      "source": "./assets/.pi/agent/skills/refactor/references/cond-decompose.md",
+      "destination": "~/.pi/agent/skills/refactor/references/cond-decompose.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-refactor-references-cond-guard-clauses-md",
+      "source": "./assets/.pi/agent/skills/refactor/references/cond-guard-clauses.md",
+      "destination": "~/.pi/agent/skills/refactor/references/cond-guard-clauses.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-refactor-references-cond-lookup-table-md",
+      "source": "./assets/.pi/agent/skills/refactor/references/cond-lookup-table.md",
+      "destination": "~/.pi/agent/skills/refactor/references/cond-lookup-table.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-refactor-references-cond-polymorphism-md",
+      "source": "./assets/.pi/agent/skills/refactor/references/cond-polymorphism.md",
+      "destination": "~/.pi/agent/skills/refactor/references/cond-polymorphism.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-refactor-references-cond-special-case-md",
+      "source": "./assets/.pi/agent/skills/refactor/references/cond-special-case.md",
+      "destination": "~/.pi/agent/skills/refactor/references/cond-special-case.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-refactor-references-couple-dependency-injection-md",
+      "source": "./assets/.pi/agent/skills/refactor/references/couple-dependency-injection.md",
+      "destination": "~/.pi/agent/skills/refactor/references/couple-dependency-injection.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-refactor-references-couple-feature-envy-md",
+      "source": "./assets/.pi/agent/skills/refactor/references/couple-feature-envy.md",
+      "destination": "~/.pi/agent/skills/refactor/references/couple-feature-envy.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-refactor-references-couple-hide-delegate-md",
+      "source": "./assets/.pi/agent/skills/refactor/references/couple-hide-delegate.md",
+      "destination": "~/.pi/agent/skills/refactor/references/couple-hide-delegate.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-refactor-references-couple-interface-segregation-md",
+      "source": "./assets/.pi/agent/skills/refactor/references/couple-interface-segregation.md",
+      "destination": "~/.pi/agent/skills/refactor/references/couple-interface-segregation.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-refactor-references-couple-preserve-whole-object-md",
+      "source": "./assets/.pi/agent/skills/refactor/references/couple-preserve-whole-object.md",
+      "destination": "~/.pi/agent/skills/refactor/references/couple-preserve-whole-object.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-refactor-references-couple-remove-middle-man-md",
+      "source": "./assets/.pi/agent/skills/refactor/references/couple-remove-middle-man.md",
+      "destination": "~/.pi/agent/skills/refactor/references/couple-remove-middle-man.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-refactor-references-data-encapsulate-collection-md",
+      "source": "./assets/.pi/agent/skills/refactor/references/data-encapsulate-collection.md",
+      "destination": "~/.pi/agent/skills/refactor/references/data-encapsulate-collection.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-refactor-references-data-encapsulate-record-md",
+      "source": "./assets/.pi/agent/skills/refactor/references/data-encapsulate-record.md",
+      "destination": "~/.pi/agent/skills/refactor/references/data-encapsulate-record.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-refactor-references-data-replace-primitive-md",
+      "source": "./assets/.pi/agent/skills/refactor/references/data-replace-primitive.md",
+      "destination": "~/.pi/agent/skills/refactor/references/data-replace-primitive.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-refactor-references-data-replace-temp-with-query-md",
+      "source": "./assets/.pi/agent/skills/refactor/references/data-replace-temp-with-query.md",
+      "destination": "~/.pi/agent/skills/refactor/references/data-replace-temp-with-query.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-refactor-references-data-split-variable-md",
+      "source": "./assets/.pi/agent/skills/refactor/references/data-split-variable.md",
+      "destination": "~/.pi/agent/skills/refactor/references/data-split-variable.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-refactor-references-error-custom-exceptions-md",
+      "source": "./assets/.pi/agent/skills/refactor/references/error-custom-exceptions.md",
+      "destination": "~/.pi/agent/skills/refactor/references/error-custom-exceptions.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-refactor-references-error-exceptions-over-codes-md",
+      "source": "./assets/.pi/agent/skills/refactor/references/error-exceptions-over-codes.md",
+      "destination": "~/.pi/agent/skills/refactor/references/error-exceptions-over-codes.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-refactor-references-error-fail-fast-md",
+      "source": "./assets/.pi/agent/skills/refactor/references/error-fail-fast.md",
+      "destination": "~/.pi/agent/skills/refactor/references/error-fail-fast.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-refactor-references-error-separate-concerns-md",
+      "source": "./assets/.pi/agent/skills/refactor/references/error-separate-concerns.md",
+      "destination": "~/.pi/agent/skills/refactor/references/error-separate-concerns.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-refactor-references-micro-inline-variable-md",
+      "source": "./assets/.pi/agent/skills/refactor/references/micro-inline-variable.md",
+      "destination": "~/.pi/agent/skills/refactor/references/micro-inline-variable.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-refactor-references-micro-remove-dead-code-md",
+      "source": "./assets/.pi/agent/skills/refactor/references/micro-remove-dead-code.md",
+      "destination": "~/.pi/agent/skills/refactor/references/micro-remove-dead-code.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-refactor-references-micro-rename-for-clarity-md",
+      "source": "./assets/.pi/agent/skills/refactor/references/micro-rename-for-clarity.md",
+      "destination": "~/.pi/agent/skills/refactor/references/micro-rename-for-clarity.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-refactor-references-micro-simplify-expressions-md",
+      "source": "./assets/.pi/agent/skills/refactor/references/micro-simplify-expressions.md",
+      "destination": "~/.pi/agent/skills/refactor/references/micro-simplify-expressions.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-refactor-references-name-avoid-abbreviations-md",
+      "source": "./assets/.pi/agent/skills/refactor/references/name-avoid-abbreviations.md",
+      "destination": "~/.pi/agent/skills/refactor/references/name-avoid-abbreviations.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-refactor-references-name-avoid-encodings-md",
+      "source": "./assets/.pi/agent/skills/refactor/references/name-avoid-encodings.md",
+      "destination": "~/.pi/agent/skills/refactor/references/name-avoid-encodings.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-refactor-references-name-consistent-vocabulary-md",
+      "source": "./assets/.pi/agent/skills/refactor/references/name-consistent-vocabulary.md",
+      "destination": "~/.pi/agent/skills/refactor/references/name-consistent-vocabulary.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-refactor-references-name-intention-revealing-md",
+      "source": "./assets/.pi/agent/skills/refactor/references/name-intention-revealing.md",
+      "destination": "~/.pi/agent/skills/refactor/references/name-intention-revealing.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-refactor-references-name-searchable-names-md",
+      "source": "./assets/.pi/agent/skills/refactor/references/name-searchable-names.md",
+      "destination": "~/.pi/agent/skills/refactor/references/name-searchable-names.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-refactor-references-pattern-composition-over-inheritance-md",
+      "source": "./assets/.pi/agent/skills/refactor/references/pattern-composition-over-inheritance.md",
+      "destination": "~/.pi/agent/skills/refactor/references/pattern-composition-over-inheritance.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-refactor-references-pattern-extract-superclass-md",
+      "source": "./assets/.pi/agent/skills/refactor/references/pattern-extract-superclass.md",
+      "destination": "~/.pi/agent/skills/refactor/references/pattern-extract-superclass.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-refactor-references-pattern-factory-md",
+      "source": "./assets/.pi/agent/skills/refactor/references/pattern-factory.md",
+      "destination": "~/.pi/agent/skills/refactor/references/pattern-factory.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-refactor-references-pattern-open-closed-md",
+      "source": "./assets/.pi/agent/skills/refactor/references/pattern-open-closed.md",
+      "destination": "~/.pi/agent/skills/refactor/references/pattern-open-closed.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-refactor-references-pattern-strategy-md",
+      "source": "./assets/.pi/agent/skills/refactor/references/pattern-strategy.md",
+      "destination": "~/.pi/agent/skills/refactor/references/pattern-strategy.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-refactor-references-pattern-template-method-md",
+      "source": "./assets/.pi/agent/skills/refactor/references/pattern-template-method.md",
+      "destination": "~/.pi/agent/skills/refactor/references/pattern-template-method.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-refactor-references-struct-compose-method-md",
+      "source": "./assets/.pi/agent/skills/refactor/references/struct-compose-method.md",
+      "destination": "~/.pi/agent/skills/refactor/references/struct-compose-method.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-refactor-references-struct-extract-class-md",
+      "source": "./assets/.pi/agent/skills/refactor/references/struct-extract-class.md",
+      "destination": "~/.pi/agent/skills/refactor/references/struct-extract-class.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-refactor-references-struct-extract-method-md",
+      "source": "./assets/.pi/agent/skills/refactor/references/struct-extract-method.md",
+      "destination": "~/.pi/agent/skills/refactor/references/struct-extract-method.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-refactor-references-struct-function-length-md",
+      "source": "./assets/.pi/agent/skills/refactor/references/struct-function-length.md",
+      "destination": "~/.pi/agent/skills/refactor/references/struct-function-length.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-refactor-references-struct-parameter-object-md",
+      "source": "./assets/.pi/agent/skills/refactor/references/struct-parameter-object.md",
+      "destination": "~/.pi/agent/skills/refactor/references/struct-parameter-object.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-refactor-references-struct-replace-method-with-object-md",
+      "source": "./assets/.pi/agent/skills/refactor/references/struct-replace-method-with-object.md",
+      "destination": "~/.pi/agent/skills/refactor/references/struct-replace-method-with-object.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-refactor-references-struct-single-responsibility-md",
+      "source": "./assets/.pi/agent/skills/refactor/references/struct-single-responsibility.md",
+      "destination": "~/.pi/agent/skills/refactor/references/struct-single-responsibility.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-refactor-skill-md",
+      "source": "./assets/.pi/agent/skills/refactor/SKILL.md",
+      "destination": "~/.pi/agent/skills/refactor/SKILL.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-agents-md",
+      "source": "./assets/.pi/agent/skills/shell/AGENTS.md",
+      "destination": "~/.pi/agent/skills/shell/AGENTS.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-assets-templates-template-md",
+      "source": "./assets/.pi/agent/skills/shell/assets/templates/_template.md",
+      "destination": "~/.pi/agent/skills/shell/assets/templates/_template.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-readme-md",
+      "source": "./assets/.pi/agent/skills/shell/README.md",
+      "destination": "~/.pi/agent/skills/shell/README.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-sections-md",
+      "source": "./assets/.pi/agent/skills/shell/references/_sections.md",
+      "destination": "~/.pi/agent/skills/shell/references/_sections.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-err-check-commands-md",
+      "source": "./assets/.pi/agent/skills/shell/references/err-check-commands.md",
+      "destination": "~/.pi/agent/skills/shell/references/err-check-commands.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-err-debug-tracing-md",
+      "source": "./assets/.pi/agent/skills/shell/references/err-debug-tracing.md",
+      "destination": "~/.pi/agent/skills/shell/references/err-debug-tracing.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-err-exit-codes-md",
+      "source": "./assets/.pi/agent/skills/shell/references/err-exit-codes.md",
+      "destination": "~/.pi/agent/skills/shell/references/err-exit-codes.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-err-pipefail-md",
+      "source": "./assets/.pi/agent/skills/shell/references/err-pipefail.md",
+      "destination": "~/.pi/agent/skills/shell/references/err-pipefail.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-err-shellcheck-md",
+      "source": "./assets/.pi/agent/skills/shell/references/err-shellcheck.md",
+      "destination": "~/.pi/agent/skills/shell/references/err-shellcheck.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-err-stderr-messages-md",
+      "source": "./assets/.pi/agent/skills/shell/references/err-stderr-messages.md",
+      "destination": "~/.pi/agent/skills/shell/references/err-stderr-messages.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-err-strict-mode-md",
+      "source": "./assets/.pi/agent/skills/shell/references/err-strict-mode.md",
+      "destination": "~/.pi/agent/skills/shell/references/err-strict-mode.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-err-trap-cleanup-md",
+      "source": "./assets/.pi/agent/skills/shell/references/err-trap-cleanup.md",
+      "destination": "~/.pi/agent/skills/shell/references/err-trap-cleanup.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-func-avoid-aliases-md",
+      "source": "./assets/.pi/agent/skills/shell/references/func-avoid-aliases.md",
+      "destination": "~/.pi/agent/skills/shell/references/func-avoid-aliases.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-func-documentation-md",
+      "source": "./assets/.pi/agent/skills/shell/references/func-documentation.md",
+      "destination": "~/.pi/agent/skills/shell/references/func-documentation.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-func-main-pattern-md",
+      "source": "./assets/.pi/agent/skills/shell/references/func-main-pattern.md",
+      "destination": "~/.pi/agent/skills/shell/references/func-main-pattern.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-func-return-values-md",
+      "source": "./assets/.pi/agent/skills/shell/references/func-return-values.md",
+      "destination": "~/.pi/agent/skills/shell/references/func-return-values.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-func-single-purpose-md",
+      "source": "./assets/.pi/agent/skills/shell/references/func-single-purpose.md",
+      "destination": "~/.pi/agent/skills/shell/references/func-single-purpose.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-perf-avoid-subshells-md",
+      "source": "./assets/.pi/agent/skills/shell/references/perf-avoid-subshells.md",
+      "destination": "~/.pi/agent/skills/shell/references/perf-avoid-subshells.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-perf-batch-operations-md",
+      "source": "./assets/.pi/agent/skills/shell/references/perf-batch-operations.md",
+      "destination": "~/.pi/agent/skills/shell/references/perf-batch-operations.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-perf-builtins-over-external-md",
+      "source": "./assets/.pi/agent/skills/shell/references/perf-builtins-over-external.md",
+      "destination": "~/.pi/agent/skills/shell/references/perf-builtins-over-external.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-perf-parameter-expansion-md",
+      "source": "./assets/.pi/agent/skills/shell/references/perf-parameter-expansion.md",
+      "destination": "~/.pi/agent/skills/shell/references/perf-parameter-expansion.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-perf-process-substitution-md",
+      "source": "./assets/.pi/agent/skills/shell/references/perf-process-substitution.md",
+      "destination": "~/.pi/agent/skills/shell/references/perf-process-substitution.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-perf-read-files-md",
+      "source": "./assets/.pi/agent/skills/shell/references/perf-read-files.md",
+      "destination": "~/.pi/agent/skills/shell/references/perf-read-files.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-port-avoid-bashisms-md",
+      "source": "./assets/.pi/agent/skills/shell/references/port-avoid-bashisms.md",
+      "destination": "~/.pi/agent/skills/shell/references/port-avoid-bashisms.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-port-export-syntax-md",
+      "source": "./assets/.pi/agent/skills/shell/references/port-export-syntax.md",
+      "destination": "~/.pi/agent/skills/shell/references/port-export-syntax.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-port-printf-over-echo-md",
+      "source": "./assets/.pi/agent/skills/shell/references/port-printf-over-echo.md",
+      "destination": "~/.pi/agent/skills/shell/references/port-printf-over-echo.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-port-shebang-selection-md",
+      "source": "./assets/.pi/agent/skills/shell/references/port-shebang-selection.md",
+      "destination": "~/.pi/agent/skills/shell/references/port-shebang-selection.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-port-test-portability-md",
+      "source": "./assets/.pi/agent/skills/shell/references/port-test-portability.md",
+      "destination": "~/.pi/agent/skills/shell/references/port-test-portability.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-quote-always-quote-variables-md",
+      "source": "./assets/.pi/agent/skills/shell/references/quote-always-quote-variables.md",
+      "destination": "~/.pi/agent/skills/shell/references/quote-always-quote-variables.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-quote-brace-expansion-md",
+      "source": "./assets/.pi/agent/skills/shell/references/quote-brace-expansion.md",
+      "destination": "~/.pi/agent/skills/shell/references/quote-brace-expansion.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-quote-command-substitution-md",
+      "source": "./assets/.pi/agent/skills/shell/references/quote-command-substitution.md",
+      "destination": "~/.pi/agent/skills/shell/references/quote-command-substitution.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-quote-dollar-at-md",
+      "source": "./assets/.pi/agent/skills/shell/references/quote-dollar-at.md",
+      "destination": "~/.pi/agent/skills/shell/references/quote-dollar-at.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-quote-glob-safety-md",
+      "source": "./assets/.pi/agent/skills/shell/references/quote-glob-safety.md",
+      "destination": "~/.pi/agent/skills/shell/references/quote-glob-safety.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-quote-here-documents-md",
+      "source": "./assets/.pi/agent/skills/shell/references/quote-here-documents.md",
+      "destination": "~/.pi/agent/skills/shell/references/quote-here-documents.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-safety-absolute-paths-md",
+      "source": "./assets/.pi/agent/skills/shell/references/safety-absolute-paths.md",
+      "destination": "~/.pi/agent/skills/shell/references/safety-absolute-paths.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-safety-argument-injection-md",
+      "source": "./assets/.pi/agent/skills/shell/references/safety-argument-injection.md",
+      "destination": "~/.pi/agent/skills/shell/references/safety-argument-injection.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-safety-command-injection-md",
+      "source": "./assets/.pi/agent/skills/shell/references/safety-command-injection.md",
+      "destination": "~/.pi/agent/skills/shell/references/safety-command-injection.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-safety-eval-avoidance-md",
+      "source": "./assets/.pi/agent/skills/shell/references/safety-eval-avoidance.md",
+      "destination": "~/.pi/agent/skills/shell/references/safety-eval-avoidance.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-safety-suid-forbidden-md",
+      "source": "./assets/.pi/agent/skills/shell/references/safety-suid-forbidden.md",
+      "destination": "~/.pi/agent/skills/shell/references/safety-suid-forbidden.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-safety-temp-files-md",
+      "source": "./assets/.pi/agent/skills/shell/references/safety-temp-files.md",
+      "destination": "~/.pi/agent/skills/shell/references/safety-temp-files.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-style-comments-md",
+      "source": "./assets/.pi/agent/skills/shell/references/style-comments.md",
+      "destination": "~/.pi/agent/skills/shell/references/style-comments.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-style-file-structure-md",
+      "source": "./assets/.pi/agent/skills/shell/references/style-file-structure.md",
+      "destination": "~/.pi/agent/skills/shell/references/style-file-structure.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-style-indentation-md",
+      "source": "./assets/.pi/agent/skills/shell/references/style-indentation.md",
+      "destination": "~/.pi/agent/skills/shell/references/style-indentation.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-test-arithmetic-md",
+      "source": "./assets/.pi/agent/skills/shell/references/test-arithmetic.md",
+      "destination": "~/.pi/agent/skills/shell/references/test-arithmetic.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-test-case-patterns-md",
+      "source": "./assets/.pi/agent/skills/shell/references/test-case-patterns.md",
+      "destination": "~/.pi/agent/skills/shell/references/test-case-patterns.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-test-double-brackets-md",
+      "source": "./assets/.pi/agent/skills/shell/references/test-double-brackets.md",
+      "destination": "~/.pi/agent/skills/shell/references/test-double-brackets.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-test-explicit-empty-md",
+      "source": "./assets/.pi/agent/skills/shell/references/test-explicit-empty.md",
+      "destination": "~/.pi/agent/skills/shell/references/test-explicit-empty.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-test-file-operators-md",
+      "source": "./assets/.pi/agent/skills/shell/references/test-file-operators.md",
+      "destination": "~/.pi/agent/skills/shell/references/test-file-operators.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-var-default-values-md",
+      "source": "./assets/.pi/agent/skills/shell/references/var-default-values.md",
+      "destination": "~/.pi/agent/skills/shell/references/var-default-values.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-var-local-scope-md",
+      "source": "./assets/.pi/agent/skills/shell/references/var-local-scope.md",
+      "destination": "~/.pi/agent/skills/shell/references/var-local-scope.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-var-naming-conventions-md",
+      "source": "./assets/.pi/agent/skills/shell/references/var-naming-conventions.md",
+      "destination": "~/.pi/agent/skills/shell/references/var-naming-conventions.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-var-readonly-constants-md",
+      "source": "./assets/.pi/agent/skills/shell/references/var-readonly-constants.md",
+      "destination": "~/.pi/agent/skills/shell/references/var-readonly-constants.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-references-var-use-arrays-md",
+      "source": "./assets/.pi/agent/skills/shell/references/var-use-arrays.md",
+      "destination": "~/.pi/agent/skills/shell/references/var-use-arrays.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-shell-skill-md",
+      "source": "./assets/.pi/agent/skills/shell/SKILL.md",
+      "destination": "~/.pi/agent/skills/shell/SKILL.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-team-debate-skill-md",
+      "source": "./assets/.pi/agent/skills/team-debate/SKILL.md",
+      "destination": "~/.pi/agent/skills/team-debate/SKILL.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-think-skill-md",
+      "source": "./assets/.pi/agent/skills/think/SKILL.md",
+      "destination": "~/.pi/agent/skills/think/SKILL.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-visual-explainer-gitignore",
+      "source": "./assets/.pi/agent/skills/visual-explainer/.gitignore",
+      "destination": "~/.pi/agent/skills/visual-explainer/.gitignore",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-visual-explainer-prompts-diff-review-md",
+      "source": "./assets/.pi/agent/skills/visual-explainer/prompts/diff-review.md",
+      "destination": "~/.pi/agent/skills/visual-explainer/prompts/diff-review.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-visual-explainer-prompts-fact-check-md",
+      "source": "./assets/.pi/agent/skills/visual-explainer/prompts/fact-check.md",
+      "destination": "~/.pi/agent/skills/visual-explainer/prompts/fact-check.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-visual-explainer-prompts-generate-web-diagram-md",
+      "source": "./assets/.pi/agent/skills/visual-explainer/prompts/generate-web-diagram.md",
+      "destination": "~/.pi/agent/skills/visual-explainer/prompts/generate-web-diagram.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-visual-explainer-prompts-plan-review-md",
+      "source": "./assets/.pi/agent/skills/visual-explainer/prompts/plan-review.md",
+      "destination": "~/.pi/agent/skills/visual-explainer/prompts/plan-review.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-visual-explainer-prompts-project-recap-md",
+      "source": "./assets/.pi/agent/skills/visual-explainer/prompts/project-recap.md",
+      "destination": "~/.pi/agent/skills/visual-explainer/prompts/project-recap.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-visual-explainer-references-css-patterns-md",
+      "source": "./assets/.pi/agent/skills/visual-explainer/references/css-patterns.md",
+      "destination": "~/.pi/agent/skills/visual-explainer/references/css-patterns.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-visual-explainer-references-libraries-md",
+      "source": "./assets/.pi/agent/skills/visual-explainer/references/libraries.md",
+      "destination": "~/.pi/agent/skills/visual-explainer/references/libraries.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-visual-explainer-references-responsive-nav-md",
+      "source": "./assets/.pi/agent/skills/visual-explainer/references/responsive-nav.md",
+      "destination": "~/.pi/agent/skills/visual-explainer/references/responsive-nav.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-visual-explainer-skill-md",
+      "source": "./assets/.pi/agent/skills/visual-explainer/SKILL.md",
+      "destination": "~/.pi/agent/skills/visual-explainer/SKILL.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-visual-explainer-templates-architecture-html",
+      "source": "./assets/.pi/agent/skills/visual-explainer/templates/architecture.html",
+      "destination": "~/.pi/agent/skills/visual-explainer/templates/architecture.html",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-visual-explainer-templates-data-table-html",
+      "source": "./assets/.pi/agent/skills/visual-explainer/templates/data-table.html",
+      "destination": "~/.pi/agent/skills/visual-explainer/templates/data-table.html",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-visual-explainer-templates-mermaid-flowchart-html",
+      "source": "./assets/.pi/agent/skills/visual-explainer/templates/mermaid-flowchart.html",
+      "destination": "~/.pi/agent/skills/visual-explainer/templates/mermaid-flowchart.html",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-worktree-skill-md",
+      "source": "./assets/.pi/agent/skills/worktree/SKILL.md",
+      "destination": "~/.pi/agent/skills/worktree/SKILL.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-x-cli-agents-openai-yaml",
+      "source": "./assets/.pi/agent/skills/x-cli/agents/openai.yaml",
+      "destination": "~/.pi/agent/skills/x-cli/agents/openai.yaml",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-x-cli-references-auth-and-debugging-md",
+      "source": "./assets/.pi/agent/skills/x-cli/references/auth-and-debugging.md",
+      "destination": "~/.pi/agent/skills/x-cli/references/auth-and-debugging.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-x-cli-references-command-map-md",
+      "source": "./assets/.pi/agent/skills/x-cli/references/command-map.md",
+      "destination": "~/.pi/agent/skills/x-cli/references/command-map.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-x-cli-references-install-and-build-md",
+      "source": "./assets/.pi/agent/skills/x-cli/references/install-and-build.md",
+      "destination": "~/.pi/agent/skills/x-cli/references/install-and-build.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-x-cli-skill-md",
+      "source": "./assets/.pi/agent/skills/x-cli/SKILL.md",
+      "destination": "~/.pi/agent/skills/x-cli/SKILL.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-upstream-skills-manifest-json",
+      "source": "./assets/.pi/agent/upstream-skills.manifest.json",
+      "destination": "~/.pi/agent/upstream-skills.manifest.json",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-vendor-skills-browser-tools-gitignore",
+      "source": "./assets/.pi/agent/vendor-skills/browser-tools/.gitignore",
+      "destination": "~/.pi/agent/vendor-skills/browser-tools/.gitignore",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-vendor-skills-browser-tools-browser-content-js",
+      "source": "./assets/.pi/agent/vendor-skills/browser-tools/browser-content.js",
+      "destination": "~/.pi/agent/vendor-skills/browser-tools/browser-content.js",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-vendor-skills-browser-tools-browser-cookies-js",
+      "source": "./assets/.pi/agent/vendor-skills/browser-tools/browser-cookies.js",
+      "destination": "~/.pi/agent/vendor-skills/browser-tools/browser-cookies.js",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-vendor-skills-browser-tools-browser-eval-js",
+      "source": "./assets/.pi/agent/vendor-skills/browser-tools/browser-eval.js",
+      "destination": "~/.pi/agent/vendor-skills/browser-tools/browser-eval.js",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-vendor-skills-browser-tools-browser-hn-scraper-js",
+      "source": "./assets/.pi/agent/vendor-skills/browser-tools/browser-hn-scraper.js",
+      "destination": "~/.pi/agent/vendor-skills/browser-tools/browser-hn-scraper.js",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-vendor-skills-browser-tools-browser-nav-js",
+      "source": "./assets/.pi/agent/vendor-skills/browser-tools/browser-nav.js",
+      "destination": "~/.pi/agent/vendor-skills/browser-tools/browser-nav.js",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-vendor-skills-browser-tools-browser-pick-js",
+      "source": "./assets/.pi/agent/vendor-skills/browser-tools/browser-pick.js",
+      "destination": "~/.pi/agent/vendor-skills/browser-tools/browser-pick.js",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-vendor-skills-browser-tools-browser-screenshot-js",
+      "source": "./assets/.pi/agent/vendor-skills/browser-tools/browser-screenshot.js",
+      "destination": "~/.pi/agent/vendor-skills/browser-tools/browser-screenshot.js",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-vendor-skills-browser-tools-browser-start-js",
+      "source": "./assets/.pi/agent/vendor-skills/browser-tools/browser-start.js",
+      "destination": "~/.pi/agent/vendor-skills/browser-tools/browser-start.js",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-vendor-skills-browser-tools-package-lock-json",
+      "source": "./assets/.pi/agent/vendor-skills/browser-tools/package-lock.json",
+      "destination": "~/.pi/agent/vendor-skills/browser-tools/package-lock.json",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-vendor-skills-browser-tools-package-json",
+      "source": "./assets/.pi/agent/vendor-skills/browser-tools/package.json",
+      "destination": "~/.pi/agent/vendor-skills/browser-tools/package.json",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-vendor-skills-browser-tools-skill-md",
+      "source": "./assets/.pi/agent/vendor-skills/browser-tools/SKILL.md",
+      "destination": "~/.pi/agent/vendor-skills/browser-tools/SKILL.md",
+      "strategy": "copy",
+      "required": true
+    }
+  ],
+  "postInstall": [
+    {
+      "id": "curated-browser-tools-browser-tools-deps",
+      "cwd": "~/.pi/agent/vendor-skills/browser-tools",
+      "run": "npm ci",
+      "optional": false
+    }
+  ]
+}

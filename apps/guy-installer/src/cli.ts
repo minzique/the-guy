@@ -18,6 +18,16 @@ import {
   type ProviderAuthContract
 } from "@the-guy/core";
 import { formatDoctorResults, runDoctor } from "@the-guy/doctor";
+import {
+  execInSandbox,
+  formatSandboxDoctorReport,
+  formatSandboxStatus,
+  getSandboxStatus,
+  openSandboxShell,
+  runSandboxDoctor,
+  startSandbox,
+  stopSandbox
+} from "@the-guy/sandbox";
 
 function print(line: string): void {
   process.stdout.write(`${line}\n`);
@@ -37,6 +47,12 @@ function printHelp(): void {
   print("  guy status");
   print("  guy doctor [--fix]");
   print("  guy repair");
+  print("  guy sandbox start");
+  print("  guy sandbox status");
+  print("  guy sandbox shell");
+  print("  guy sandbox exec -- <cmd>");
+  print("  guy sandbox stop [--force]");
+  print("  guy sandbox doctor");
 }
 
 function printAuthContract(contract: ProviderAuthContract): void {
@@ -93,7 +109,7 @@ function handleStatus(): number {
 
   const platform = detectSupportedPlatform();
   if (!platform) {
-    printError("Unsupported platform for The Guy v0.1. macOS is the only supported target.");
+    printError("Unsupported platform for native install. macOS is the only supported native host. On Linux, use: guy sandbox start");
     return 1;
   }
 
@@ -204,8 +220,118 @@ function handleAuth(provider: string | undefined): number {
   return 1;
 }
 
+function printSandboxUsage(): void {
+  print("Usage: guy sandbox <start|status|shell|exec|stop|doctor>");
+}
+
+function handleSandboxStart(): number {
+  try {
+    startSandbox();
+    const status = getSandboxStatus();
+    print("Sandbox ready");
+    for (const line of formatSandboxStatus(status)) {
+      print(line);
+    }
+    return 0;
+  } catch (error) {
+    printError(error instanceof Error ? error.message : String(error));
+    return 1;
+  }
+}
+
+function handleSandboxStatus(): number {
+  try {
+    const status = getSandboxStatus();
+    for (const line of formatSandboxStatus(status)) {
+      print(line);
+    }
+    return 0;
+  } catch (error) {
+    printError(error instanceof Error ? error.message : String(error));
+    return 1;
+  }
+}
+
+function handleSandboxShell(): number {
+  try {
+    return openSandboxShell();
+  } catch (error) {
+    printError(error instanceof Error ? error.message : String(error));
+    return 1;
+  }
+}
+
+function handleSandboxExec(argv: string[]): number {
+  const command = argv[0] === "--" ? argv.slice(1) : argv;
+  if (command.length === 0) {
+    printError("Usage: guy sandbox exec -- <cmd>");
+    return 1;
+  }
+
+  try {
+    return execInSandbox(command);
+  } catch (error) {
+    printError(error instanceof Error ? error.message : String(error));
+    return 1;
+  }
+}
+
+function handleSandboxStop(argv: string[]): number {
+  try {
+    const force = argv.includes("--force");
+    stopSandbox({ force });
+    print(force ? "Sandbox container removed" : "Sandbox stopped");
+    return 0;
+  } catch (error) {
+    printError(error instanceof Error ? error.message : String(error));
+    return 1;
+  }
+}
+
+function handleSandboxDoctor(): number {
+  try {
+    const checks = runSandboxDoctor();
+    print("Sandbox doctor");
+    for (const line of formatSandboxDoctorReport(checks)) {
+      print(line);
+    }
+    return checks.some((check) => check.status === "fail") ? 1 : 0;
+  } catch (error) {
+    printError(error instanceof Error ? error.message : String(error));
+    return 1;
+  }
+}
+
+function handleSandbox(argv: string[]): number {
+  const [subcommand, ...rest] = argv;
+
+  if (!subcommand || subcommand === "help" || subcommand === "--help" || subcommand === "-h") {
+    printSandboxUsage();
+    return 0;
+  }
+
+  switch (subcommand) {
+    case "start":
+      return handleSandboxStart();
+    case "status":
+      return handleSandboxStatus();
+    case "shell":
+      return handleSandboxShell();
+    case "exec":
+      return handleSandboxExec(rest);
+    case "stop":
+      return handleSandboxStop(rest);
+    case "doctor":
+      return handleSandboxDoctor();
+    default:
+      printError(`Unknown sandbox command: ${subcommand}`);
+      printSandboxUsage();
+      return 1;
+  }
+}
+
 function main(argv: string[]): number {
-  const [command, subcommand] = argv;
+  const [command, ...rest] = argv;
 
   if (!command || command === "help" || command === "--help" || command === "-h") {
     printHelp();
@@ -216,13 +342,15 @@ function main(argv: string[]): number {
     case "install":
       return handleInstall();
     case "auth":
-      return handleAuth(subcommand);
+      return handleAuth(rest[0]);
     case "status":
       return handleStatus();
     case "doctor":
-      return handleDoctor(subcommand === "--fix");
+      return handleDoctor(rest[0] === "--fix");
     case "repair":
       return handleRepair();
+    case "sandbox":
+      return handleSandbox(rest);
     default:
       printError(`Unknown command: ${command}`);
       printHelp();

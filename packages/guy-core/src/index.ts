@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 import { spawnSync } from "node:child_process";
-import { copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { copyFileSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -10,15 +10,18 @@ import type {
   Channel,
   GuyAssetManifest,
   GuyInstallState,
+  GuyPackManifest,
+  GuyPiPackReference,
   GuyProfileManifest,
   HealthState,
   PostInstallTask,
   ManagedAsset,
   SupportedPlatform
 } from "@the-guy/profile-schema";
+import { loadPiPackManifest, resolvePiPackAssetSourcePath } from "@the-guy/pi-pack";
 
 export const GUY_DIRECTORY_NAME = ".guy";
-export const V0_SUPPORTED_COMMANDS = ["install", "auth", "status", "doctor", "repair"] as const;
+export const V0_SUPPORTED_COMMANDS = ["install", "auth", "status", "doctor", "repair", "sandbox"] as const;
 export type V0SupportedCommand = (typeof V0_SUPPORTED_COMMANDS)[number];
 export type ProviderId = "claude" | "codex";
 
@@ -118,12 +121,20 @@ function isWslEnvironment(environment: NodeJS.ProcessEnv = process.env): boolean
   return Boolean(environment.WSL_DISTRO_NAME || environment.WSL_INTEROP);
 }
 
+function isSandboxContainerEnvironment(environment: NodeJS.ProcessEnv = process.env): boolean {
+  return environment.GUY_SANDBOX === "1";
+}
+
 export function detectSupportedPlatform(
   nodePlatform: NodeJS.Platform = process.platform,
   environment: NodeJS.ProcessEnv = process.env
 ): SupportedPlatform | null {
   if (nodePlatform === "darwin") {
     return "darwin";
+  }
+
+  if (nodePlatform === "linux" && isSandboxContainerEnvironment(environment)) {
+    return "linux-container";
   }
 
   if (nodePlatform === "linux" && isWslEnvironment(environment)) {
@@ -164,7 +175,7 @@ export function getRuntimeContract(explicitHomeDirectory?: string): RuntimeContr
     version: "0.1.0",
     defaultProfileId: "power-user",
     defaultChannel: "dogfood",
-    supportedPlatforms: ["darwin"],
+    supportedPlatforms: ["darwin", "linux-container"],
     supportedCommands: V0_SUPPORTED_COMMANDS,
     stateFile: paths.installStateFile
   };
@@ -253,6 +264,59 @@ function readJsonFile<T>(filePath: string): T {
 function writeJsonFile(filePath: string, value: unknown): void {
   mkdirSync(path.dirname(filePath), { recursive: true });
   writeFileSync(filePath, `${JSON.stringify(value, null, 2)}\n`);
+}
+
+function compareVersionStrings(left: string, right: string): number {
+  const leftParts = left.split(".").map((part) => Number.parseInt(part, 10) || 0);
+  const rightParts = right.split(".").map((part) => Number.parseInt(part, 10) || 0);
+  const maxLength = Math.max(leftParts.length, rightParts.length);
+
+  for (let index = 0; index < maxLength; index += 1) {
+    const leftPart = leftParts[index] ?? 0;
+    const rightPart = rightParts[index] ?? 0;
+
+    if (leftPart !== rightPart) {
+      return leftPart - rightPart;
+    }
+  }
+
+  return 0;
+}
+
+function matchesMaximumTestedRuntimeVersion(runtimeVersion: string, maximumTestedRuntimeVersion: string): boolean {
+  if (maximumTestedRuntimeVersion.includes(".x")) {
+    const runtimeParts = runtimeVersion.split(".");
+    const maximumParts = maximumTestedRuntimeVersion.split(".");
+
+    for (let index = 0; index < maximumParts.length; index += 1) {
+      const maximumPart = maximumParts[index];
+      if (maximumPart === "x") {
+        return true;
+      }
+
+      if ((runtimeParts[index] ?? "") !== maximumPart) {
+        return false;
+      }
+    }
+
+    return runtimeParts.length <= maximumParts.length;
+  }
+
+  return compareVersionStrings(runtimeVersion, maximumTestedRuntimeVersion) <= 0;
+}
+
+function assertPackRuntimeCompatibility(pack: GuyPackManifest, runtimeVersion: string): void {
+  if (compareVersionStrings(runtimeVersion, pack.minimumRuntimeVersion) < 0) {
+    throw new Error(
+      `Pi pack ${pack.id}@${pack.packVersion} requires runtime ${pack.minimumRuntimeVersion}+ (got ${runtimeVersion})`
+    );
+  }
+
+  if (!matchesMaximumTestedRuntimeVersion(runtimeVersion, pack.maximumTestedRuntimeVersion)) {
+    throw new Error(
+      `Pi pack ${pack.id}@${pack.packVersion} is only tested through runtime ${pack.maximumTestedRuntimeVersion} (got ${runtimeVersion})`
+    );
+  }
 }
 
 function ensureRuntimeDirectories(paths: GuyPaths): void {
@@ -508,6 +572,33 @@ function backupExistingAsset(asset: ResolvedManagedAsset, paths: GuyPaths): void
   copyFileSync(asset.destinationPath, backupPath);
 }
 
+function removeStaleManagedAssets(
+  profileId: string,
+  assets: readonly ResolvedManagedAsset[],
+  paths: GuyPaths
+): void {
+  const renderedAssetsPath = path.join(paths.renderedDir, profileId, "assets.json");
+  if (!existsSync(renderedAssetsPath)) {
+    return;
+  }
+
+  let previousMetadata: RenderedAssetMetadata;
+  try {
+    previousMetadata = readJsonFile<RenderedAssetMetadata>(renderedAssetsPath);
+  } catch {
+    return;
+  }
+
+  const nextDestinations = new Set(assets.map((asset) => asset.destinationPath));
+  for (const previousAsset of previousMetadata.assets) {
+    if (nextDestinations.has(previousAsset.destinationPath)) {
+      continue;
+    }
+
+    rmSync(previousAsset.destinationPath, { force: true, recursive: true });
+  }
+}
+
 function computeManagedAssetHash(assets: readonly ResolvedManagedAsset[]): string {
   const hash = createHash("sha256");
   const sortedAssets = [...assets].sort((left, right) => left.id.localeCompare(right.id));
@@ -584,34 +675,79 @@ export function loadAssetManifest(
   profileId: string,
   profile: GuyProfileManifest = loadProfileManifest(profileId)
 ): GuyAssetManifest {
+  if (!profile.assetManifest) {
+    throw new Error(`Profile ${profileId} does not declare an assetManifest (it may be pack-backed only)`);
+  }
+
   return readJsonFile<GuyAssetManifest>(
     path.join(resolveProfileDirectory(profileId), profile.assetManifest.replace(/^\.\//, ""))
   );
 }
 
+function loadPackManifest(reference: GuyPiPackReference, runtimeVersion: string): GuyPackManifest {
+  const pack = loadPiPackManifest(reference);
+  assertPackRuntimeCompatibility(pack, runtimeVersion);
+  return pack;
+}
+
+function resolvePackPostInstallTasks(
+  profile: GuyProfileManifest,
+  runtimeVersion: string
+): PostInstallTask[] {
+  if (!profile.piPack) {
+    return [];
+  }
+
+  const pack = loadPackManifest(profile.piPack, runtimeVersion);
+  return pack.postInstall ?? [];
+}
+
+function resolveManagedAssetsForProfile(
+  profile: GuyProfileManifest,
+  explicitHomeDirectory: string | undefined,
+  runtimeVersion: string
+): ResolvedManagedAsset[] {
+  if (!profile.piPack && !profile.assetManifest) {
+    throw new Error(`Profile ${profile.id} declares neither piPack nor assetManifest`);
+  }
+
+  if (profile.piPack) {
+    const pack = loadPackManifest(profile.piPack, runtimeVersion);
+
+    return pack.assets.map((asset) => ({
+      ...asset,
+      sourcePath: resolvePiPackAssetSourcePath(asset.source),
+      destinationPath: resolveHomePath(asset.destination, explicitHomeDirectory)
+    }));
+  }
+
+  const assetManifest = loadAssetManifest(profile.id, profile);
+
+  if (assetManifest.profileId !== profile.id) {
+    throw new Error(
+      `Asset manifest profile mismatch for ${profile.id}: got ${assetManifest.profileId}`
+    );
+  }
+
+  const profileDirectory = resolveProfileDirectory(profile.id);
+  return assetManifest.assets.map((asset) => ({
+    ...asset,
+    sourcePath: path.join(profileDirectory, asset.source.replace(/^\.\//, "")),
+    destinationPath: resolveHomePath(asset.destination, explicitHomeDirectory)
+  }));
+}
+
 export function resolveManagedAssets(
   profileId: string,
-  explicitHomeDirectory?: string
+  explicitHomeDirectory?: string,
+  runtimeVersion: string = getRuntimeContract(explicitHomeDirectory).version
 ): ResolvedManagedAsset[] {
   const chain = loadProfileChain(profileId);
   const mergedAssets = new Map<string, ResolvedManagedAsset>();
 
   for (const profile of chain) {
-    const assetManifest = loadAssetManifest(profile.id, profile);
-
-    if (assetManifest.profileId !== profile.id) {
-      throw new Error(
-        `Asset manifest profile mismatch for ${profile.id}: got ${assetManifest.profileId}`
-      );
-    }
-
-    const profileDirectory = resolveProfileDirectory(profile.id);
-    for (const asset of assetManifest.assets) {
-      mergedAssets.set(asset.id, {
-        ...asset,
-        sourcePath: path.join(profileDirectory, asset.source.replace(/^\.\//, "")),
-        destinationPath: resolveHomePath(asset.destination, explicitHomeDirectory)
-      });
+    for (const asset of resolveManagedAssetsForProfile(profile, explicitHomeDirectory, runtimeVersion)) {
+      mergedAssets.set(asset.id, asset);
     }
   }
 
@@ -619,6 +755,10 @@ export function resolveManagedAssets(
 }
 
 function runPostInstallTasks(tasks: readonly PostInstallTask[], explicitHomeDirectory?: string): void {
+  if (process.env.GUY_SKIP_POST_INSTALL === "1") {
+    return;
+  }
+
   for (const task of tasks) {
     const cwd = resolveHomePath(task.cwd, explicitHomeDirectory);
     mkdirSync(cwd, { recursive: true });
@@ -700,7 +840,13 @@ export function installProfile(
   ensureRuntimeDirectories(paths);
   ensureManagedBinaryRequirements(profile);
 
-  const assets = resolveManagedAssets(profileId, explicitHomeDirectory);
+  const assets = resolveManagedAssets(profileId, explicitHomeDirectory, runtime.version);
+  const postInstallTasks = mergePostInstallTasks([
+    ...resolvePackPostInstallTasks(profile, runtime.version),
+    ...(profile.postInstall ?? [])
+  ]);
+
+  removeStaleManagedAssets(profileId, assets, paths);
 
   for (const asset of assets) {
     if (!existsSync(asset.sourcePath)) {
@@ -716,7 +862,7 @@ export function installProfile(
     copyFileSync(asset.sourcePath, asset.destinationPath);
   }
 
-  runPostInstallTasks(profile.postInstall ?? [], explicitHomeDirectory);
+  runPostInstallTasks(postInstallTasks, explicitHomeDirectory);
   syncPiPackages(explicitHomeDirectory);
 
   const managedAssetHash = computeManagedAssetHash(assets);
