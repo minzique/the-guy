@@ -11,7 +11,8 @@
       "import": "./dist/index.js"
     },
     "./schema/profile.schema.json": "./schema/profile.schema.json",
-    "./schema/assets.schema.json": "./schema/assets.schema.json"
+    "./schema/assets.schema.json": "./schema/assets.schema.json",
+    "./schema/pack.schema.json": "./schema/pack.schema.json"
   },
   "files": ["dist", "schema"],
   "scripts": {
