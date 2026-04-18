@@ -109,7 +109,7 @@ function handleStatus(): number {
 
   const platform = detectSupportedPlatform();
   if (!platform) {
-    printError("Unsupported platform for The Guy v0.1. macOS is the only supported native host target.");
+    printError("Unsupported platform for native install. macOS is the only supported native host. On Linux, use: guy sandbox start");
     return 1;
   }
 

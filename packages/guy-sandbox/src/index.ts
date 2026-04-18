@@ -109,7 +109,11 @@ function writeJsonFile(filePath: string, value: unknown): void {
 }
 
 function readJsonFile<T>(filePath: string): T {
-  return JSON.parse(readFileSync(filePath, "utf8")) as T;
+  try {
+    return JSON.parse(readFileSync(filePath, "utf8")) as T;
+  } catch (cause) {
+    throw new Error(`Failed to read JSON from ${filePath}`, { cause });
+  }
 }
 
 function runCommand(
@@ -335,7 +339,6 @@ export function buildDockerRunArguments(state: GuySandboxState): string[] {
   return [
     "run",
     "--detach",
-    "--init",
     "--name",
     state.containerName,
     "--hostname",
@@ -385,7 +388,12 @@ function inspectDockerContainer(containerName: string): DockerContainerInspect |
     return null;
   }
 
-  const parsed = JSON.parse(result.stdout) as DockerContainerInspect[];
+  let parsed: DockerContainerInspect[];
+  try {
+    parsed = JSON.parse(result.stdout) as DockerContainerInspect[];
+  } catch {
+    return null;
+  }
   return parsed[0] ?? null;
 }
 
@@ -696,7 +704,7 @@ export function runSandboxDoctor(options: GuySandboxStartOptions = {}): GuySandb
   } else {
     checks.push({
       id: "runtime-status",
-      status: status.running ? "warn" : "warn",
+      status: "warn",
       detail: status.running
         ? "Sandbox container is running but runtime status output was empty"
         : "Sandbox runtime is unavailable because the container is not running"
