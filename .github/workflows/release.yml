@@ -1,0 +1,90 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.7.1
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run tests
+        run: pnpm test
+
+      - name: Build release bundle
+        run: pnpm release:bundle
+
+      - name: Compute bundle metadata
+        id: bundle
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          TAG=${GITHUB_REF_NAME}
+          if [ "v${VERSION}" != "$TAG" ]; then
+            echo "Tag $TAG does not match package.json version v${VERSION}" >&2
+            exit 1
+          fi
+          BUNDLE=".artifacts/the-guy-${VERSION}.tar.gz"
+          if [ ! -f "$BUNDLE" ]; then
+            echo "Missing bundle: $BUNDLE" >&2
+            exit 1
+          fi
+          shasum -a 256 "$BUNDLE" > "${BUNDLE}.sha256"
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+          echo "bundle=${BUNDLE}" >> "$GITHUB_OUTPUT"
+          echo "checksum=${BUNDLE}.sha256" >> "$GITHUB_OUTPUT"
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            ${{ steps.bundle.outputs.bundle }}
+            ${{ steps.bundle.outputs.checksum }}
+          generate_release_notes: true
+          fail_on_unmatched_files: true
+
+      - name: Update changelog from release notes
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+          REPOSITORY: ${{ github.repository }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin "$DEFAULT_BRANCH"
+          git switch -C "$DEFAULT_BRANCH" "origin/$DEFAULT_BRANCH"
+          gh release view "$TAG" --repo "$REPOSITORY" --json tagName,url,publishedAt,body > .artifacts/release.json
+          node ./scripts/update-changelog-from-release.mjs --release-json .artifacts/release.json
+          if git diff --quiet -- CHANGELOG.md; then
+            echo "CHANGELOG.md is already up to date."
+            exit 0
+          fi
+          git add CHANGELOG.md
+          git commit -m "docs(changelog): $TAG"
+          if ! git push origin HEAD:"$DEFAULT_BRANCH"; then
+            echo "::warning::Failed to push CHANGELOG.md back to $DEFAULT_BRANCH. Release assets were published, but branch protection may require a manual follow-up or a workflow exemption for github-actions[bot]."
+          fi
