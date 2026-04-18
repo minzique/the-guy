@@ -1,0 +1,91 @@
+name: Codex PR Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  codex:
+    if: |
+      github.event.pull_request.draft == false &&
+      vars.CODEX_REVIEW == 'true'
+    runs-on: ubuntu-latest
+    outputs:
+      final_message: ${{ steps.run_codex.outputs.final-message }}
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: refs/pull/${{ github.event.pull_request.number }}/merge
+          fetch-depth: 0
+
+      - name: Pre-fetch base + head refs
+        env:
+          PR_BASE_REF: ${{ github.event.pull_request.base.ref }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          git fetch --no-tags origin "$PR_BASE_REF" "+refs/pull/$PR_NUMBER/head"
+
+      - name: Run Codex
+        id: run_codex
+        uses: openai/codex-action@v1
+        with:
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          model: gpt-5.4
+          effort: high
+          sandbox: read-only
+          prompt: |
+            You are reviewing pull request #${{ github.event.pull_request.number }}
+            in ${{ github.repository }} — a TypeScript monorepo (pnpm
+            workspaces, node:test, esbuild) for an agent runtime distribution
+            system called "the-guy".
+
+            The workspace contains:
+            - apps/guy-installer/ — CLI entry point
+            - packages/guy-core/ — install state, asset rendering, profiles
+            - packages/guy-doctor/ — runtime health checks
+            - packages/guy-sandbox/ — Docker driver, container lifecycle
+            - packages/guy-pi-pack/ — shipped Pi runtime files
+            - packages/guy-profile-schema/ — shared types
+            - packages/guy-auth-{claude,codex}/ — provider login
+            - install.sh — bash installer (curl | bash)
+            - docker/ — Dockerfiles
+            - site/ — GitHub Pages static site
+            - scripts/ — build tooling
+
+            The diff is between origin/${{ github.event.pull_request.base.ref }}
+            and the PR head. Read the code around each change, not just the
+            diff.
+
+            Focus on:
+            - Correctness of the changed code for its claimed purpose. Edge
+              cases, unusual paths, empty input, concurrent invocations.
+            - TypeScript strictness. No `any`, no `@ts-ignore`, no silent
+              catches, explicit async cleanup. Strict mode is enforced.
+            - Shell safety in install.sh and scripts. `set -euo pipefail`,
+              proper quoting, no eval on user input.
+            - Docker security. No root containers, no host path leaks, no
+              shell injection via spawned docker CLI argv.
+            - Profile schema backward compatibility.
+            - Build consistency across pnpm workspace refs and tsconfig paths.
+
+            Be specific: file + line + concrete fix. No fluff. Don't suggest
+            "add tests" unless the omission actively hides bugs.
+
+            End with a one-line verdict: LGTM / LGTM with nits / needs changes.
+
+      - name: Post review as PR comment
+        if: always() && steps.run_codex.outputs.final-message != ''
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const msg = `## 🤖 Codex review\n\n${{ steps.run_codex.outputs.final-message }}`;
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: msg,
+            });

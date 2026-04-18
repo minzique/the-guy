@@ -1,0 +1,95 @@
+name: Claude PR Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+  pull_request_review_comment:
+    types: [created]
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+  id-token: write
+
+jobs:
+  claude:
+    if: |
+      github.event_name != 'pull_request' ||
+      github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Run Claude
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          trigger_phrase: "@claude"
+          track_progress: true
+          prompt: |
+            REPO: ${{ github.repository }}
+            PR NUMBER: ${{ github.event.pull_request.number || github.event.issue.number }}
+
+            You are reviewing a pull request on `minzique/the-guy` — a
+            TypeScript monorepo (pnpm workspaces, node:test, esbuild) for an
+            agent runtime distribution system. The workspace contains:
+              - apps/guy-installer/ — CLI entry point, command routing
+              - packages/guy-core/ — install state, asset rendering, profile
+                chains, platform detection
+              - packages/guy-doctor/ — runtime health checks, managed assets,
+                Pi readiness, provider auth
+              - packages/guy-sandbox/ — Docker image build, container lifecycle,
+                warm attach, exec surface
+              - packages/guy-pi-pack/ — canonical shipped Pi runtime files
+                (agents, skills, prompts, settings)
+              - packages/guy-profile-schema/ — shared types for profiles, packs,
+                assets, channels, platforms
+              - packages/guy-auth-{claude,codex}/ — provider login/status
+              - profiles/ — preset profile definitions (base, power-user)
+              - install.sh — bash installer (curl | bash entry)
+              - docker/guy-sandbox/ — Dockerfile for sandbox images
+              - site/ — GitHub Pages explainer + release ledger (static HTML)
+              - scripts/ — build-release-bundle.mjs, build-pages-site.mjs
+
+            Read the diff and the code around it carefully. Think like an
+            outside reviewer who was not part of writing this.
+
+            Focus on:
+            - Correctness. Does the code do what the commit message says?
+              Edge cases, error handling, empty input, concurrent invocations.
+            - TypeScript strictness. No `any`, no `@ts-ignore`, no silent
+              catches, explicit async cleanup. The project uses strict mode.
+            - Shell safety in install.sh and scripts. Proper quoting, no eval
+              on user input, `set -euo pipefail`.
+            - Docker security in Dockerfile and sandbox driver. No running as
+              root, no bind-mounting host paths without justification, no
+              shell injection via spawned docker CLI args.
+            - Profile schema consistency. Changes to profile.json or
+              guy-profile-schema must be backward-compatible.
+            - Build correctness. pnpm workspace references, esbuild config,
+              tsconfig paths must stay consistent.
+
+            When you find something, be specific: file + line + concrete fix.
+            When the code is fine, say so and move on. Do not pad with
+            "consider adding tests" unless the omission is actually load-bearing.
+
+            The PR branch is already checked out in the current working directory.
+
+            How to post your review:
+            - Use `mcp__github_inline_comment__create_inline_comment` (with
+              `confirmed: true`) for line-specific issues. One per finding.
+            - Use `gh pr comment $PR_NUMBER --body "..."` for the top-level
+              summary comment. End the summary with one of:
+                LGTM
+                LGTM with nits
+                needs changes
+
+          claude_args: |
+            --allowedTools "mcp__github_inline_comment__create_inline_comment,Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*),Bash(gh pr checks:*),Bash(cat:*),Bash(grep:*),Bash(rg:*),Bash(find:*),Bash(ls:*),Bash(head:*),Bash(tail:*),Bash(wc:*)"
