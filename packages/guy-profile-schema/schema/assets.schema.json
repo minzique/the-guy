@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://the-guy.dev/schema/assets.json",
+  "title": "The Guy asset manifest",
+  "type": "object",
+  "required": ["version", "profileId", "assets"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "const": "0.1"
+    },
+    "profileId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "assets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "source", "destination", "strategy", "required"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source": {
+            "type": "string",
+            "pattern": "^\\./"
+          },
+          "destination": {
+            "type": "string",
+            "minLength": 1
+          },
+          "strategy": {
+            "type": "string",
+            "enum": ["copy"]
+          },
+          "required": {
+            "type": "boolean"
+          },
+          "templateContext": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "default": []
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

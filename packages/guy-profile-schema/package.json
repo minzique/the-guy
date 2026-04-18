@@ -1,0 +1,22 @@
+{
+  "name": "@the-guy/profile-schema",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./schema/profile.schema.json": "./schema/profile.schema.json",
+    "./schema/assets.schema.json": "./schema/assets.schema.json"
+  },
+  "files": ["dist", "schema"],
+  "scripts": {
+    "build": "tsc -b",
+    "clean": "rm -rf dist tsconfig.tsbuildinfo",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  }
+}

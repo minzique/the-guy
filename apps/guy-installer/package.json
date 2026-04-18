@@ -1,0 +1,24 @@
+{
+  "name": "@the-guy/installer",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "bin": {
+    "guy": "./dist/cli.js"
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc -b",
+    "clean": "rm -rf dist tsconfig.tsbuildinfo",
+    "dev": "tsx src/cli.ts",
+    "start": "node dist/cli.js",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@the-guy/auth-claude": "workspace:*",
+    "@the-guy/auth-codex": "workspace:*",
+    "@the-guy/core": "workspace:*",
+    "@the-guy/doctor": "workspace:*",
+    "@the-guy/profile-schema": "workspace:*"
+  }
+}

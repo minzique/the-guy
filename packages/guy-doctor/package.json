@@ -1,0 +1,25 @@
+{
+  "name": "@the-guy/doctor",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc -b",
+    "clean": "rm -rf dist tsconfig.tsbuildinfo",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@the-guy/auth-claude": "workspace:*",
+    "@the-guy/auth-codex": "workspace:*",
+    "@the-guy/core": "workspace:*"
+  }
+}

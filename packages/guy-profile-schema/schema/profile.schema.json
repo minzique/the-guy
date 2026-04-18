@@ -1,0 +1,150 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://the-guy.dev/schema/profile.json",
+  "title": "The Guy profile manifest",
+  "type": "object",
+  "required": [
+    "version",
+    "id",
+    "displayName",
+    "description",
+    "status",
+    "supportedPlatforms",
+    "uiMode",
+    "channel",
+    "selectable",
+    "managedTools",
+    "binaryRequirements",
+    "assetManifest",
+    "doctorChecks"
+  ],
+  "properties": {
+    "version": {
+      "type": "string",
+      "const": "0.1"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "displayName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "type": "string",
+      "enum": ["internal", "shipping", "deferred"]
+    },
+    "inherits": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "default": []
+    },
+    "supportedPlatforms": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "enum": ["darwin", "linux-wsl"]
+      }
+    },
+    "uiMode": {
+      "type": "string",
+      "enum": ["standard", "terminal-first", "guided"]
+    },
+    "channel": {
+      "type": "string",
+      "enum": ["dogfood", "beta", "stable"]
+    },
+    "selectable": {
+      "type": "boolean"
+    },
+    "managedTools": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["claude", "codex", "pi", "gh"]
+      },
+      "uniqueItems": true
+    },
+    "binaryRequirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "displayName", "required", "managedByGuy"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "displayName": {
+            "type": "string",
+            "minLength": 1
+          },
+          "required": {
+            "type": "boolean"
+          },
+          "managedByGuy": {
+            "type": "boolean"
+          },
+          "verifyCommand": {
+            "type": "string"
+          },
+          "installCommand": {
+            "type": "string"
+          },
+          "installHint": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "assetManifest": {
+      "type": "string",
+      "pattern": "^\\./.+\\.json$"
+    },
+    "doctorChecks": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["runtime-state", "managed-assets", "pi", "claude-auth", "codex-auth", "platform"]
+      },
+      "uniqueItems": true
+    },
+    "postInstall": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "cwd", "run"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "cwd": {
+            "type": "string",
+            "minLength": 1
+          },
+          "run": {
+            "type": "string",
+            "minLength": 1
+          },
+          "optional": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "default": []
+    }
+  },
+  "additionalProperties": false
+}
