@@ -25,6 +25,8 @@ npm install
 
 Launch Chrome with remote debugging on `:9222`. Use `--profile` to preserve user's authentication state.
 
+`browser-start.js` only auto-launches Chrome on macOS. On Linux or Windows, start Chrome/Chromium manually with `--remote-debugging-port=9222` and then use the other tools.
+
 ## Navigate
 
 ```bash
