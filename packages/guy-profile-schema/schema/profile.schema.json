@@ -15,8 +15,15 @@
     "selectable",
     "managedTools",
     "binaryRequirements",
-    "assetManifest",
     "doctorChecks"
+  ],
+  "anyOf": [
+    {
+      "required": ["assetManifest"]
+    },
+    {
+      "required": ["piPack"]
+    }
   ],
   "properties": {
     "version": {
@@ -106,6 +113,21 @@
         },
         "additionalProperties": false
       }
+    },
+    "piPack": {
+      "type": "object",
+      "required": ["id", "version"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
     },
     "assetManifest": {
       "type": "string",
