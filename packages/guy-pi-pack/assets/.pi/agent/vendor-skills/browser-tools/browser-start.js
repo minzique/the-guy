@@ -25,6 +25,13 @@ try {
 	process.exit(0);
 } catch {}
 
+if (process.platform !== "darwin") {
+	console.error(
+		"✗ browser-start.js only auto-starts Chrome on macOS. Start Chrome with --remote-debugging-port=9222 manually on this platform.",
+	);
+	process.exit(1);
+}
+
 // Setup profile directory
 execSync(`mkdir -p "${SCRAPING_DIR}"`, { stdio: "ignore" });
 
