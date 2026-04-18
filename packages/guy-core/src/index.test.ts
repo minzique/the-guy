@@ -9,6 +9,7 @@ import {
   detectSupportedPlatform,
   installProfile,
   loadAssetManifest,
+  resolveManagedAssets,
   loadProfileManifest,
   loadResolvedProfileManifest,
   readInstallState,
@@ -53,6 +54,14 @@ test("profile manifests and asset manifests load from the bundled profile tree",
   assert.equal(profile.assetManifest, "./assets.json");
   assert.equal(assets.profileId, "power-user");
   assert.equal(assets.assets.length > 250, true);
+});
+
+test("power-user resolves managed assets from the canonical pi pack", () => {
+  const assets = resolveManagedAssets("power-user", "/tmp/the-guy-home");
+  const settingsAsset = assets.find((asset) => asset.destinationPath.endsWith("/.pi/agent/settings.json"));
+
+  assert.ok(settingsAsset);
+  assert.match(settingsAsset.sourcePath, /guy-pi-pack[\\/]assets[\\/]\.pi[\\/]agent[\\/]settings\.json$/);
 });
 
 test("resolveHomePath expands tilde destinations against the explicit home", () => {

@@ -63,6 +63,22 @@ export interface GuyAssetManifest {
   assets: ManagedAsset[];
 }
 
+export interface GuyPiPackReference {
+  id: string;
+  version: string;
+}
+
+export interface GuyPackManifest {
+  version: "0.1";
+  id: string;
+  displayName: string;
+  packageName: string;
+  packVersion: string;
+  minimumRuntimeVersion: string;
+  maximumTestedRuntimeVersion: string;
+  assets: ManagedAsset[];
+}
+
 export interface GuyProfileManifest {
   version: "0.1";
   id: string;
@@ -76,7 +92,8 @@ export interface GuyProfileManifest {
   selectable: boolean;
   managedTools: ManagedTool[];
   binaryRequirements: BinaryRequirement[];
-  assetManifest: string;
+  piPack?: GuyPiPackReference;
+  assetManifest?: string;
   doctorChecks: DoctorCheckId[];
   postInstall?: PostInstallTask[];
 }
@@ -98,6 +115,10 @@ export function getProfileSchemaPath(): string {
 
 export function getAssetsSchemaPath(): string {
   return fileURLToPath(new URL("../schema/assets.schema.json", import.meta.url));
+}
+
+export function getPackSchemaPath(): string {
+  return fileURLToPath(new URL("../schema/pack.schema.json", import.meta.url));
 }
 
 export function isSelectableProfile(profile: Pick<GuyProfileManifest, "selectable" | "status">): boolean {

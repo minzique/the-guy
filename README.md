@@ -89,7 +89,9 @@ curl -fsSL https://raw.githubusercontent.com/minzique/the-guy/main/install.sh | 
 
 The shell script only resolves and installs the release bundle. The real runtime behavior stays in the TypeScript CLI.
 
-The copied Pi payload under `profiles/power-user/assets/.pi/agent/` is temporary release input. The source of truth should stay upstream, and you should refresh the mirror with:
+The canonical shipped Pi payload now lives under `packages/guy-pi-pack/assets/.pi/agent/`.
+
+For founder-compatibility, `profiles/power-user/assets/` is still kept as a generated mirror/fallback, not the authoring source. For now the sync flow still refreshes the pack from the upstream Pi authoring repo, then regenerates the profile mirror:
 
 ```bash
 pnpm sync:power-user-payload
