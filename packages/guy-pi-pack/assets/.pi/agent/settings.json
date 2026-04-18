@@ -1,0 +1,17 @@
+{
+  "defaultProvider": "openai-codex",
+  "defaultModel": "gpt-5.4",
+  "defaultThinkingLevel": "xhigh",
+  "hideThinkingBlock": false,
+  "packages": [
+    "npm:pi-web-access"
+  ],
+  "skills": [
+    "~/.pi/agent/skills"
+  ],
+  "compaction": {
+    "enabled": true,
+    "reserveTokens": 16384,
+    "keepRecentTokens": 20000
+  }
+}

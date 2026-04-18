@@ -4,12 +4,25 @@
   "displayName": "Power User",
   "description": "Pi-first founder dogfood profile for macOS with bundled power-user runtime assets.",
   "status": "shipping",
-  "inherits": ["base"],
-  "supportedPlatforms": ["darwin"],
+  "inherits": [
+    "base"
+  ],
+  "supportedPlatforms": [
+    "darwin"
+  ],
   "uiMode": "terminal-first",
   "channel": "dogfood",
   "selectable": true,
-  "managedTools": ["claude", "codex", "pi", "gh"],
+  "managedTools": [
+    "claude",
+    "codex",
+    "pi",
+    "gh"
+  ],
+  "piPack": {
+    "id": "pi-pack",
+    "version": "0.1.0"
+  },
   "binaryRequirements": [
     {
       "id": "pi",
@@ -46,6 +59,13 @@
     }
   ],
   "assetManifest": "./assets.json",
-  "doctorChecks": ["runtime-state", "managed-assets", "pi", "claude-auth", "codex-auth", "platform"],
+  "doctorChecks": [
+    "runtime-state",
+    "managed-assets",
+    "pi",
+    "claude-auth",
+    "codex-auth",
+    "platform"
+  ],
   "postInstall": []
 }
