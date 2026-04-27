@@ -216,6 +216,14 @@ function rewritePackSettings() {
   }
 
   settings.packages = Array.from(new Set(rewrittenPackages));
+
+  const existingSkillPaths = Array.isArray(settings.skills)
+    ? settings.skills.filter((entry) => typeof entry === "string")
+    : [];
+  settings.skills = Array.from(
+    new Set(["~/.pi/agent/vendor-skills", "~/.pi/agent/skills", ...existingSkillPaths])
+  );
+
   writeFileSync(settingsPath, `${JSON.stringify(settings, null, 2)}\n`);
 }
 
