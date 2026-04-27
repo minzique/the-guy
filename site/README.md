@@ -8,6 +8,7 @@ This folder is the GitHub Pages surface for The Guy.
 - page renderer: `site/templates/render-stack-page.mjs`
 - generated output: `site/index.html`
 - automatic release ledger source: `CHANGELOG.md`
+- payload source-of-truth docs: `docs/payload-sync.md`
 
 ## Build
 
@@ -19,3 +20,4 @@ node ./scripts/build-pages-site.mjs
 
 - `release.yml` updates `CHANGELOG.md` and rebuilds `site/index.html`
 - `pages.yml` deploys the `site/` directory to GitHub Pages on pushes to `main`
+- `pnpm sync:power-user-payload` refreshes pack facts from `dotfiles-agents` + `pi-curated-skills`
