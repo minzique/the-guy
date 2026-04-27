@@ -97,7 +97,7 @@ Treat sync output as generated product payload:
    - `packages/guy-pi-pack/pack.json`
    - `profiles/power-user/assets/**`
    - `profiles/power-user/assets.json`
-4. Commit the The Guy payload refresh separately from unrelated runtime/site changes.
+4. Commit The Guy payload refresh separately from unrelated runtime/site changes.
 5. Open a PR and let Claude/Codex reviewers check the generated payload boundary.
 
 ## Why not sync automatically from CI?

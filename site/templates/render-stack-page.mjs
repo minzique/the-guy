@@ -20,7 +20,7 @@ function mdBlocks(md) {
 }
 
 export function renderStackPage(content, releases, meta) {
-  const nav = [["status","status"],["architecture","stack"],["flows","flows"],["packages","packages"],["payload","payload"],["decisions","bets"],["releases","releases"]];
+  const nav = [["status","status"],["architecture","stack"],["flows","flows"],["packages","packages"],["payload","payload"],["docs","docs"],["decisions","bets"],["releases","releases"]];
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -192,7 +192,7 @@ section+section{border-top:1px solid var(--line)}
   padding:3px 10px;border-radius:99px;
 }
 .d-env--shipped .d-env-status{background:var(--cool-bg);color:var(--cool)}
-.d-env--next .d-env-status{background:color-mix(in srgb,var(--faint) 14%,transparent);color:var(--faint)}
+.d-env--next .d-env-status,.d-env--future .d-env-status{background:color-mix(in srgb,var(--faint) 14%,transparent);color:var(--faint)}
 
 /* ═══ OVERVIEW: STACK TOWER ═══ */
 .tower{display:grid;gap:3px;max-width:580px}
