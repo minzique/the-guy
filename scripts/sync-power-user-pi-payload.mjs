@@ -220,6 +220,12 @@ function rewritePackSettings() {
   const existingSkillPaths = Array.isArray(settings.skills)
     ? settings.skills.filter((entry) => typeof entry === "string")
     : [];
+  const droppedSkillPathCount = Array.isArray(settings.skills)
+    ? settings.skills.length - existingSkillPaths.length
+    : 0;
+  if (droppedSkillPathCount > 0) {
+    console.warn(`Dropped ${droppedSkillPathCount} non-string settings.skills entries during pack rewrite.`);
+  }
   settings.skills = Array.from(
     new Set(["~/.pi/agent/vendor-skills", "~/.pi/agent/skills", ...existingSkillPaths])
   );
