@@ -14,6 +14,7 @@ This repo is an active v0.1 founder dogfood build.
 - Product direction: `docs/rfcs/RFC-001-the-guy-managed-agent-harness-distribution.md`
 - Installer/profile contract: `docs/rfcs/RFC-002-the-guy-v0-1-installer-and-profile-contract.md`
 - Dual runtime contract: `docs/rfcs/RFC-004-dual-runtime-native-and-docker-sandbox.md`
+- Payload sync workflow: `docs/payload-sync.md`
 - Weekend execution record: `docs/exec-plans/completed/the-guy-founder-weekend-dogfood.md`
 - **v0.1 supports macOS only**
 - **v0.1 is CLI-only**
@@ -103,10 +104,11 @@ The canonical shipped Pi payload now lives under `packages/guy-pi-pack/assets/.p
 
 Third-party curated Pi skills are generated from `/Users/minzi/Developer/pi-curated-skills`, not authored directly inside the pack. The shipped runtime destination for those skills is `~/.pi/agent/vendor-skills/**`.
 
-For founder-compatibility, `profiles/power-user/assets/` is still kept as a generated mirror/fallback, not the authoring source. For now the sync flow still refreshes the pack from the upstream Pi authoring repo, then regenerates the profile mirror:
+For founder-compatibility, `profiles/power-user/assets/` is still kept as a generated mirror/fallback, not the authoring source. For now the sync flow still refreshes the pack from the upstream Pi authoring repo, then regenerates the profile mirror. See `docs/payload-sync.md` for source-of-truth rules and promotion flow:
 
 ```bash
 pnpm sync:power-user-payload
+pnpm test
 ```
 
 ## Release flow

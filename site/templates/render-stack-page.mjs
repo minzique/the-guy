@@ -20,7 +20,7 @@ function mdBlocks(md) {
 }
 
 export function renderStackPage(content, releases, meta) {
-  const nav = [["architecture","stack"],["flows","flows"],["packages","packages"],["decisions","bets"],["releases","releases"]];
+  const nav = [["status","status"],["architecture","stack"],["flows","flows"],["packages","packages"],["payload","payload"],["docs","docs"],["decisions","bets"],["releases","releases"]];
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -192,7 +192,7 @@ section+section{border-top:1px solid var(--line)}
   padding:3px 10px;border-radius:99px;
 }
 .d-env--shipped .d-env-status{background:var(--cool-bg);color:var(--cool)}
-.d-env--next .d-env-status{background:color-mix(in srgb,var(--faint) 14%,transparent);color:var(--faint)}
+.d-env--next .d-env-status,.d-env--future .d-env-status{background:color-mix(in srgb,var(--faint) 14%,transparent);color:var(--faint)}
 
 /* ═══ OVERVIEW: STACK TOWER ═══ */
 .tower{display:grid;gap:3px;max-width:580px}
@@ -278,6 +278,31 @@ section+section{border-top:1px solid var(--line)}
 .pkg-role{font:500 .66rem "JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:3px}
 .pkg-path{font:500 .8rem "JetBrains Mono",monospace;color:var(--text);margin-bottom:5px}
 .pkg-desc{font-size:.84rem;color:var(--dim);line-height:1.5}
+
+/* ═══ FACT CARDS / COMMANDS / PAYLOAD ═══ */
+.fact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:8px}
+.fact{
+  padding:18px 18px;border:1px solid var(--line);border-radius:12px;
+  background:color-mix(in srgb,var(--bg) 64%,var(--code-bg));
+  box-shadow:0 14px 34px color-mix(in srgb,var(--text) 4%,transparent);
+}
+.fact-label{font:500 .66rem "JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:4px}
+.fact-value{font:600 1rem "DM Sans",sans-serif;letter-spacing:-.01em;margin-bottom:5px}
+.fact-detail{font-size:.84rem;color:var(--dim);line-height:1.5}
+.cmd-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:6px;margin-top:28px}
+.cmd{font:400 .78rem "JetBrains Mono",monospace;padding:9px 11px;border:1px solid var(--code-border);border-radius:8px;background:var(--code-bg);overflow:auto;white-space:nowrap}
+.payload-block{display:grid;gap:28px}
+.payload-title{font:600 .95rem "DM Sans",sans-serif;margin-bottom:12px;letter-spacing:-.01em}
+.payload-lists{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:8px}
+.payload-list{padding:16px 18px;border:1px solid var(--line);border-radius:12px;background:color-mix(in srgb,var(--bg) 66%,var(--code-bg))}
+.payload-list h3{font:500 .7rem "JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin:0 0 10px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font:400 .72rem "JetBrains Mono",monospace;padding:4px 8px;border-radius:6px;background:var(--code-bg);border:1px solid var(--code-border)}
+.doc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:8px}
+.doc-card{display:block;text-decoration:none;padding:18px;border:1px solid var(--line);border-radius:12px;background:color-mix(in srgb,var(--bg) 64%,var(--code-bg));transition:border-color .15s,transform .2s cubic-bezier(.25,1,.5,1),box-shadow .2s}
+.doc-card:hover{border-color:var(--accent-dim);transform:translateY(-2px);box-shadow:0 22px 48px color-mix(in srgb,var(--text) 7%,transparent)}
+.doc-label{font:600 .95rem "DM Sans",sans-serif;color:var(--text);margin-bottom:6px}
+.doc-desc{font-size:.84rem;color:var(--dim);line-height:1.5}
 
 /* ═══ DECISIONS ═══ */
 .decs{display:grid;gap:0}
@@ -366,6 +391,26 @@ footer{padding:36px 0;border-top:1px solid var(--line)}
   <p class="hero-sub reveal">${esc(content.hero.oneLiner)}</p>
   <div class="install-bar reveal">${esc(content.installCommand)}</div>
 </div>
+
+<!-- ═══ STATUS ═══ -->
+<section id="status">
+<div class="wide">
+  <h2 class="reveal">v0.1 status</h2>
+  <p class="s-sub reveal">What is real now, what is deliberately deferred, and what command surface ships.</p>
+  <div class="fact-grid reveal">
+    ${content.statusCards.map(card => `
+      <div class="fact">
+        <div class="fact-label">${esc(card.label)}</div>
+        <div class="fact-value">${esc(card.value)}</div>
+        <div class="fact-detail">${esc(card.detail)}</div>
+      </div>
+    `).join("")}
+  </div>
+  <div class="cmd-grid reveal">
+    ${content.commands.map(command => `<div class="cmd">${esc(command)}</div>`).join("")}
+  </div>
+</div>
+</section>
 
 <!-- ═══ ARCHITECTURE ═══ -->
 <section id="architecture">
@@ -481,6 +526,52 @@ footer{padding:36px 0;border-top:1px solid var(--line)}
         <div class="pkg-path">${esc(p.path)}</div>
         <div class="pkg-desc">${esc(p.desc)}</div>
       </div>
+    `).join("")}
+  </div>
+</div>
+</section>
+
+<!-- ═══ PAYLOAD ═══ -->
+<section id="payload">
+<div class="wide payload-block">
+  <div>
+    <h2 class="reveal">Payload source of truth</h2>
+    <p class="s-sub reveal">The Guy does not author everything in its shipped pack. It productizes canonical source repos into a reproducible runtime payload.</p>
+    <div class="fact-grid reveal">
+      ${content.payload.sourceTruth.map(item => `
+        <div class="fact">
+          <div class="fact-label">${esc(item.label)}</div>
+          <div class="fact-value">${esc(item.value)}</div>
+          <div class="fact-detail">${esc(item.detail)}</div>
+        </div>
+      `).join("")}
+    </div>
+  </div>
+  <div>
+    <div class="payload-title reveal">What ships in the power-user pack</div>
+    <div class="payload-lists reveal">
+      ${content.payload.shipped.map(group => `
+        <div class="payload-list">
+          <h3>${esc(group.label)}</h3>
+          <div class="chips">${group.items.map(item => `<span class="chip">${esc(item)}</span>`).join("")}</div>
+        </div>
+      `).join("")}
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══ DOCS ═══ -->
+<section id="docs">
+<div class="wide">
+  <h2 class="reveal">Deep dives</h2>
+  <p class="s-sub reveal">The architecture is written down. The public page is the map; the RFCs are the contract.</p>
+  <div class="doc-grid reveal">
+    ${content.docs.map(doc => `
+      <a class="doc-card" href="${esc(doc.href)}">
+        <div class="doc-label">${esc(doc.label)} ↗</div>
+        <div class="doc-desc">${esc(doc.desc)}</div>
+      </a>
     `).join("")}
   </div>
 </div>

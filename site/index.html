@@ -169,7 +169,7 @@ section+section{border-top:1px solid var(--line)}
   padding:3px 10px;border-radius:99px;
 }
 .d-env--shipped .d-env-status{background:var(--cool-bg);color:var(--cool)}
-.d-env--next .d-env-status{background:color-mix(in srgb,var(--faint) 14%,transparent);color:var(--faint)}
+.d-env--next .d-env-status,.d-env--future .d-env-status{background:color-mix(in srgb,var(--faint) 14%,transparent);color:var(--faint)}
 
 /* ═══ OVERVIEW: STACK TOWER ═══ */
 .tower{display:grid;gap:3px;max-width:580px}
@@ -256,6 +256,31 @@ section+section{border-top:1px solid var(--line)}
 .pkg-path{font:500 .8rem "JetBrains Mono",monospace;color:var(--text);margin-bottom:5px}
 .pkg-desc{font-size:.84rem;color:var(--dim);line-height:1.5}
 
+/* ═══ FACT CARDS / COMMANDS / PAYLOAD ═══ */
+.fact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:8px}
+.fact{
+  padding:18px 18px;border:1px solid var(--line);border-radius:12px;
+  background:color-mix(in srgb,var(--bg) 64%,var(--code-bg));
+  box-shadow:0 14px 34px color-mix(in srgb,var(--text) 4%,transparent);
+}
+.fact-label{font:500 .66rem "JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:4px}
+.fact-value{font:600 1rem "DM Sans",sans-serif;letter-spacing:-.01em;margin-bottom:5px}
+.fact-detail{font-size:.84rem;color:var(--dim);line-height:1.5}
+.cmd-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:6px;margin-top:28px}
+.cmd{font:400 .78rem "JetBrains Mono",monospace;padding:9px 11px;border:1px solid var(--code-border);border-radius:8px;background:var(--code-bg);overflow:auto;white-space:nowrap}
+.payload-block{display:grid;gap:28px}
+.payload-title{font:600 .95rem "DM Sans",sans-serif;margin-bottom:12px;letter-spacing:-.01em}
+.payload-lists{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:8px}
+.payload-list{padding:16px 18px;border:1px solid var(--line);border-radius:12px;background:color-mix(in srgb,var(--bg) 66%,var(--code-bg))}
+.payload-list h3{font:500 .7rem "JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin:0 0 10px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font:400 .72rem "JetBrains Mono",monospace;padding:4px 8px;border-radius:6px;background:var(--code-bg);border:1px solid var(--code-border)}
+.doc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:8px}
+.doc-card{display:block;text-decoration:none;padding:18px;border:1px solid var(--line);border-radius:12px;background:color-mix(in srgb,var(--bg) 64%,var(--code-bg));transition:border-color .15s,transform .2s cubic-bezier(.25,1,.5,1),box-shadow .2s}
+.doc-card:hover{border-color:var(--accent-dim);transform:translateY(-2px);box-shadow:0 22px 48px color-mix(in srgb,var(--text) 7%,transparent)}
+.doc-label{font:600 .95rem "DM Sans",sans-serif;color:var(--text);margin-bottom:6px}
+.doc-desc{font-size:.84rem;color:var(--dim);line-height:1.5}
+
 /* ═══ DECISIONS ═══ */
 .decs{display:grid;gap:0}
 .dec{
@@ -331,7 +356,7 @@ footer{padding:36px 0;border-top:1px solid var(--line)}
       <button data-mode="technical">technical</button>
     </div>
     <nav class="mast-nav">
-      <a href="#architecture">stack</a><a href="#flows">flows</a><a href="#packages">packages</a><a href="#decisions">bets</a><a href="#releases">releases</a>
+      <a href="#status">status</a><a href="#architecture">stack</a><a href="#flows">flows</a><a href="#packages">packages</a><a href="#payload">payload</a><a href="#docs">docs</a><a href="#decisions">bets</a><a href="#releases">releases</a>
       <a href="https://github.com/minzique/the-guy">repo ↗</a>
     </nav>
   </div>
@@ -340,9 +365,47 @@ footer{padding:36px 0;border-top:1px solid var(--line)}
 
 <div class="col hero" id="top">
   <h1 class="reveal">The Guy</h1>
-  <p class="hero-sub reveal">One payload. Install it natively or sandbox it in Docker. Same pack, same health checks, same repair.</p>
+  <p class="hero-sub reveal">One payload. Install it natively or run it in Docker. Same pack, same doctor, same repair path.</p>
   <div class="install-bar reveal">curl -fsSL https://raw.githubusercontent.com/minzique/the-guy/main/install.sh | bash</div>
 </div>
+
+<!-- ═══ STATUS ═══ -->
+<section id="status">
+<div class="wide">
+  <h2 class="reveal">v0.1 status</h2>
+  <p class="s-sub reveal">What is real now, what is deliberately deferred, and what command surface ships.</p>
+  <div class="fact-grid reveal">
+    
+      <div class="fact">
+        <div class="fact-label">Native host</div>
+        <div class="fact-value">macOS</div>
+        <div class="fact-detail">v0.1 native install writes into your real home directory.</div>
+      </div>
+    
+      <div class="fact">
+        <div class="fact-label">Sandbox</div>
+        <div class="fact-value">Docker</div>
+        <div class="fact-detail">Warm local container with a persistent Guy-owned home volume.</div>
+      </div>
+    
+      <div class="fact">
+        <div class="fact-label">Profile</div>
+        <div class="fact-value">power-user</div>
+        <div class="fact-detail">The only selectable shipped profile. Guided onboarding is deferred.</div>
+      </div>
+    
+      <div class="fact">
+        <div class="fact-label">Payload</div>
+        <div class="fact-value">Pi-first</div>
+        <div class="fact-detail">Agents, prompts, extensions, skills, settings, and vendor browser-tools.</div>
+      </div>
+    
+  </div>
+  <div class="cmd-grid reveal">
+    <div class="cmd">guy install</div><div class="cmd">guy status</div><div class="cmd">guy doctor [--fix]</div><div class="cmd">guy repair</div><div class="cmd">guy auth claude</div><div class="cmd">guy auth codex</div><div class="cmd">guy sandbox start</div><div class="cmd">guy sandbox status</div><div class="cmd">guy sandbox shell</div><div class="cmd">guy sandbox exec -- &lt;cmd&gt;</div><div class="cmd">guy sandbox stop</div><div class="cmd">guy sandbox doctor</div>
+  </div>
+</div>
+</section>
 
 <!-- ═══ ARCHITECTURE ═══ -->
 <section id="architecture">
@@ -377,11 +440,11 @@ footer{padding:36px 0;border-top:1px solid var(--line)}
           </div>
         
           <div class="d-branch">
-            <div class="d-env d-env--next">
-              <div class="d-env-label">Remote exec</div>
-              <div class="d-env-cmd">guy sandbox exec --remote</div>
-              <div class="d-env-desc">Same contract over SSH</div>
-              <span class="d-env-status">next</span>
+            <div class="d-env d-env--future">
+              <div class="d-env-label">Remote envelope</div>
+              <div class="d-env-cmd">future SSH driver</div>
+              <div class="d-env-desc">Same exec contract, deferred backend</div>
+              <span class="d-env-status">future</span>
             </div>
           </div>
         
@@ -397,36 +460,43 @@ footer{padding:36px 0;border-top:1px solid var(--line)}
         <div class="layer">
           <div class="layer-dot"></div>
           <div class="layer-label">Distribution</div>
-          <div class="layer-what">install.sh + GitHub Releases</div>
-          <div class="layer-how">A shell script resolves the latest release tarball from GitHub, drops it onto the machine, and installs a launcher at ~/.local/bin/guy. That is the entire job of bash. Everything else is TypeScript.</div>
+          <div class="layer-what">install.sh + GitHub Releases + Pages</div>
+          <div class="layer-how">A shell script resolves the latest release tarball from GitHub, drops it onto the machine, and installs a launcher at ~/.local/bin/guy. The public site is generated from structured content plus CHANGELOG.md and deployed by GitHub Pages.</div>
         </div>
       
         <div class="layer">
           <div class="layer-dot"></div>
           <div class="layer-label">CLI surface</div>
           <div class="layer-what">guy install | status | doctor | repair | auth | sandbox</div>
-          <div class="layer-how">One binary routes every operator flow. No separate daemons, no hidden config UIs. If you can type guy, you can see what the runtime thinks is true.</div>
+          <div class="layer-how">One binary routes every operator flow. No separate daemons, no hidden config UIs. If you can type guy, you can see what the runtime thinks is true and repair drift when it breaks.</div>
         </div>
       
         <div class="layer">
           <div class="layer-dot"></div>
           <div class="layer-label">Runtime kernel</div>
           <div class="layer-what">@the-guy/core, @the-guy/doctor, @the-guy/sandbox</div>
-          <div class="layer-how">Core owns install state, asset rendering, and profile resolution. Doctor turns hidden drift into explicit check results. Sandbox owns the Docker driver contract and warm-container lifecycle.</div>
+          <div class="layer-how">Core owns install state, asset rendering, stale asset pruning, profile resolution, and pack post-install tasks. Doctor turns hidden drift into explicit check results. Sandbox owns the Docker driver contract and warm-container lifecycle.</div>
         </div>
       
         <div class="layer">
           <div class="layer-dot"></div>
-          <div class="layer-label">Payload</div>
-          <div class="layer-what">@the-guy/pi-pack + profiles/power-user</div>
-          <div class="layer-how">The Pi pack is the canonical home of shipped runtime files — agents, prompts, skills, extensions, settings. Profiles are presets that choose which pack to use and which tools to manage. ~/.pi/** is disposable render output, not a source of truth.</div>
+          <div class="layer-label">Payload boundary</div>
+          <div class="layer-what">@the-guy/pi-pack + generated profile mirror</div>
+          <div class="layer-how">The Pi pack is the canonical product payload. ~/.pi/** is disposable render output. profiles/power-user/assets is still generated as a founder-compatibility mirror, not the authoring source.</div>
+        </div>
+      
+        <div class="layer">
+          <div class="layer-dot"></div>
+          <div class="layer-label">Source of truth</div>
+          <div class="layer-what">dotfiles-agents + pi-curated-skills → guy-pi-pack</div>
+          <div class="layer-how">First-party harness files come from dotfiles-agents/home/.pi/agent. Third-party curated skills come from pi-curated-skills exports. The Guy consumes both through pnpm sync:power-user-payload and records vendor provenance in upstream-skills.manifest.json.</div>
         </div>
       
         <div class="layer">
           <div class="layer-dot"></div>
           <div class="layer-label">Execution envelopes</div>
-          <div class="layer-what">native home · docker sandbox · (future remote)</div>
-          <div class="layer-how">guy install writes into a real macOS home. guy sandbox start builds the same payload into a Docker container with its own persistent home volume. The future Paperclip remote surface will use the same exec contract without inventing a new packaging model.</div>
+          <div class="layer-what">native home · docker sandbox · future remote</div>
+          <div class="layer-how">guy install writes into a real macOS home. guy sandbox start builds the same payload into a Docker container with its own persistent home volume. Remote execution is a future driver over the same start/status/exec/doctor contract, not a shipped command yet.</div>
         </div>
       
         <div class="layer">
@@ -451,12 +521,12 @@ footer{padding:36px 0;border-top:1px solid var(--line)}
     
       <div class="tower-row">
         <div class="tower-label">Distribution</div>
-        <div class="tower-items"><span class="tower-chip">install.sh</span><span class="tower-chip">GitHub Releases</span><span class="tower-chip">tar.gz bundle</span></div>
+        <div class="tower-items"><span class="tower-chip">install.sh</span><span class="tower-chip">GitHub Releases</span><span class="tower-chip">tar.gz bundle</span><span class="tower-chip">Pages</span></div>
       </div>
     
       <div class="tower-row">
         <div class="tower-label">CLI</div>
-        <div class="tower-items"><span class="tower-chip">guy install</span><span class="tower-chip">guy doctor</span><span class="tower-chip">guy sandbox *</span></div>
+        <div class="tower-items"><span class="tower-chip">install</span><span class="tower-chip">doctor</span><span class="tower-chip">repair</span><span class="tower-chip">auth</span><span class="tower-chip">sandbox</span></div>
       </div>
     
       <div class="tower-row">
@@ -466,12 +536,12 @@ footer{padding:36px 0;border-top:1px solid var(--line)}
     
       <div class="tower-row">
         <div class="tower-label">Payload</div>
-        <div class="tower-items"><span class="tower-chip">@the-guy/pi-pack</span><span class="tower-chip">profiles/power-user</span></div>
+        <div class="tower-items"><span class="tower-chip">@the-guy/pi-pack</span><span class="tower-chip">power-user</span><span class="tower-chip">vendor-skills</span></div>
       </div>
     
       <div class="tower-row">
-        <div class="tower-label">Providers</div>
-        <div class="tower-items"><span class="tower-chip">pi</span><span class="tower-chip">claude</span><span class="tower-chip">codex</span><span class="tower-chip">docker</span></div>
+        <div class="tower-label">Quality</div>
+        <div class="tower-items"><span class="tower-chip">node:test</span><span class="tower-chip">Claude Opus review</span><span class="tower-chip">Codex ready</span></div>
       </div>
     
   </div>
@@ -488,11 +558,11 @@ footer{padding:36px 0;border-top:1px solid var(--line)}
     <div class="flow-pair reveal">
       <div>
         <div class="flow-label">Native install</div>
-        <div class="flow-track"><div class="flow-sc">resolve bundle</div><div class="flow-sc">load profile + pack</div><div class="flow-sc">render ~/.pi/**</div><div class="flow-sc">write state + doctor log</div></div>
+        <div class="flow-track"><div class="flow-sc">resolve bundle</div><div class="flow-sc">load profile + pack</div><div class="flow-sc">render ~/.pi/**</div><div class="flow-sc">prune stale managed assets</div><div class="flow-sc">doctor + repair drift</div></div>
       </div>
       <div>
         <div class="flow-label">Docker sandbox</div>
-        <div class="flow-track"><div class="flow-sc">rebuild bundle context</div><div class="flow-sc">docker build image</div><div class="flow-sc">create container + volume</div><div class="flow-sc">guy install inside</div><div class="flow-sc">warm reattach</div></div>
+        <div class="flow-track"><div class="flow-sc">rebuild bundle context</div><div class="flow-sc">docker build image</div><div class="flow-sc">create container + volume</div><div class="flow-sc">guy install inside</div><div class="flow-sc">warm shell/exec reattach</div></div>
       </div>
     </div>
   </div>
@@ -512,7 +582,7 @@ footer{padding:36px 0;border-top:1px solid var(--line)}
             
               <div class="df-step">
                 <div class="df-step-name">Run guy install</div>
-                <div class="df-step-detail">The TypeScript runtime resolves the power-user profile and loads the shipped Pi pack.</div>
+                <div class="df-step-detail">The TypeScript runtime resolves the power-user profile, loads the shipped Pi pack, and merges pack/profile post-install tasks.</div>
               </div>
             
               <div class="df-step">
@@ -521,8 +591,13 @@ footer{padding:36px 0;border-top:1px solid var(--line)}
               </div>
             
               <div class="df-step">
+                <div class="df-step-name">Prune stale assets</div>
+                <div class="df-step-detail">Files that used to be managed but disappeared from the next payload are removed during install.</div>
+              </div>
+            
+              <div class="df-step">
                 <div class="df-step-name">Verify health</div>
-                <div class="df-step-detail">Doctor checks confirm runtime state, managed assets, Pi readiness, and provider auth handoffs.</div>
+                <div class="df-step-detail">Doctor checks confirm runtime state, managed assets, Pi readiness, platform support, and provider auth handoffs.</div>
               </div>
             
           </div>
@@ -555,6 +630,33 @@ footer{padding:36px 0;border-top:1px solid var(--line)}
               <div class="df-step">
                 <div class="df-step-name">Operate</div>
                 <div class="df-step-detail">Humans use shell; automation and future control planes use exec, status, and doctor.</div>
+              </div>
+            
+          </div>
+        </div>
+      
+        <div>
+          <div class="df-title">Payload sync</div>
+          <div class="df-steps">
+            
+              <div class="df-step">
+                <div class="df-step-name">Update source</div>
+                <div class="df-step-detail">First-party changes land in dotfiles-agents; curated third-party skills land in pi-curated-skills.</div>
+              </div>
+            
+              <div class="df-step">
+                <div class="df-step-name">Render curated skills</div>
+                <div class="df-step-detail">pi-curated-skills produces exported skill payloads plus provenance metadata.</div>
+              </div>
+            
+              <div class="df-step">
+                <div class="df-step-name">Sync into The Guy</div>
+                <div class="df-step-detail">pnpm sync:power-user-payload copies allowed source paths into packages/guy-pi-pack and mirrors them into profiles/power-user/assets.</div>
+              </div>
+            
+              <div class="df-step">
+                <div class="df-step-name">Verify</div>
+                <div class="df-step-detail">pnpm test checks the pack manifest, post-install tasks, schema, runtime, CLI, and sandbox driver.</div>
               </div>
             
           </div>
@@ -609,7 +711,7 @@ footer{padding:36px 0;border-top:1px solid var(--line)}
       <div class="pkg">
         <div class="pkg-role">Runtime</div>
         <div class="pkg-path">packages/guy-core</div>
-        <div class="pkg-desc">Install state, asset rendering, profile chains, platform detection.</div>
+        <div class="pkg-desc">Install state, asset rendering, stale asset pruning, profile chains, post-install tasks.</div>
       </div>
     
       <div class="pkg">
@@ -642,6 +744,106 @@ footer{padding:36px 0;border-top:1px solid var(--line)}
         <div class="pkg-desc">Claude and Codex login/status contracts, kept narrow.</div>
       </div>
     
+      <div class="pkg">
+        <div class="pkg-role">Quality</div>
+        <div class="pkg-path">.github/workflows</div>
+        <div class="pkg-desc">Release, Pages, Claude Opus review, and Codex review-ready automation.</div>
+      </div>
+    
+  </div>
+</div>
+</section>
+
+<!-- ═══ PAYLOAD ═══ -->
+<section id="payload">
+<div class="wide payload-block">
+  <div>
+    <h2 class="reveal">Payload source of truth</h2>
+    <p class="s-sub reveal">The Guy does not author everything in its shipped pack. It productizes canonical source repos into a reproducible runtime payload.</p>
+    <div class="fact-grid reveal">
+      
+        <div class="fact">
+          <div class="fact-label">First-party harness</div>
+          <div class="fact-value">dotfiles-agents/home/.pi/agent</div>
+          <div class="fact-detail">AGENTS.md, settings, agents, prompts, selected extensions, and first-party skills.</div>
+        </div>
+      
+        <div class="fact">
+          <div class="fact-label">Curated vendor skills</div>
+          <div class="fact-value">pi-curated-skills/exports</div>
+          <div class="fact-detail">Generated third-party skills with provenance and post-install metadata.</div>
+        </div>
+      
+        <div class="fact">
+          <div class="fact-label">Product payload</div>
+          <div class="fact-value">packages/guy-pi-pack/assets</div>
+          <div class="fact-detail">Generated consumer copy that ships in The Guy bundles.</div>
+        </div>
+      
+        <div class="fact">
+          <div class="fact-label">Legacy mirror</div>
+          <div class="fact-value">profiles/power-user/assets</div>
+          <div class="fact-detail">Generated fallback mirror kept until all consumers use the pack boundary.</div>
+        </div>
+      
+    </div>
+  </div>
+  <div>
+    <div class="payload-title reveal">What ships in the power-user pack</div>
+    <div class="payload-lists reveal">
+      
+        <div class="payload-list">
+          <h3>Agents</h3>
+          <div class="chips"><span class="chip">scout</span><span class="chip">planner</span><span class="chip">reviewer</span><span class="chip">worker</span></div>
+        </div>
+      
+        <div class="payload-list">
+          <h3>Prompts</h3>
+          <div class="chips"><span class="chip">feature</span><span class="chip">scout-and-plan</span><span class="chip">implement</span><span class="chip">implement-and-review</span><span class="chip">worktree</span></div>
+        </div>
+      
+        <div class="payload-list">
+          <h3>Extensions</h3>
+          <div class="chips"><span class="chip">context-awareness</span><span class="chip">session-browser</span><span class="chip">subagent</span></div>
+        </div>
+      
+        <div class="payload-list">
+          <h3>Skills</h3>
+          <div class="chips"><span class="chip">clean-code</span><span class="chip">code-reviewer</span><span class="chip">debug</span><span class="chip">dev-rfc</span><span class="chip">exec-plan</span><span class="chip">find-skills</span><span class="chip">humanizer</span><span class="chip">refactor</span><span class="chip">shell</span><span class="chip">team-debate</span><span class="chip">think</span><span class="chip">visual-explainer</span><span class="chip">worktree</span><span class="chip">x-cli</span></div>
+        </div>
+      
+        <div class="payload-list">
+          <h3>Vendor</h3>
+          <div class="chips"><span class="chip">browser-tools</span><span class="chip">npm ci post-install</span><span class="chip">MIT provenance</span><span class="chip">replaces agent-browser</span></div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══ DOCS ═══ -->
+<section id="docs">
+<div class="wide">
+  <h2 class="reveal">Deep dives</h2>
+  <p class="s-sub reveal">The architecture is written down. The public page is the map; the RFCs are the contract.</p>
+  <div class="doc-grid reveal">
+    
+      <a class="doc-card" href="https://github.com/minzique/the-guy/blob/main/docs/rfcs/RFC-003-pack-owned-pi-payloads-and-overrides.md">
+        <div class="doc-label">Pack boundary ↗</div>
+        <div class="doc-desc">Why the Pi payload lives in a pack and ~/.pi is render output.</div>
+      </a>
+    
+      <a class="doc-card" href="https://github.com/minzique/the-guy/blob/main/docs/rfcs/RFC-004-dual-runtime-native-and-docker-sandbox.md">
+        <div class="doc-label">Dual runtime ↗</div>
+        <div class="doc-desc">Native install, local Docker sandbox, and the future remote driver contract.</div>
+      </a>
+    
+      <a class="doc-card" href="https://github.com/minzique/the-guy/blob/main/docs/payload-sync.md">
+        <div class="doc-label">Payload sync ↗</div>
+        <div class="doc-desc">How dotfiles-agents and curated skills flow into The Guy.</div>
+      </a>
+    
   </div>
 </div>
 </section>
@@ -659,7 +861,17 @@ footer{padding:36px 0;border-top:1px solid var(--line)}
     
       <div class="dec">
         <div class="dec-q">Why Docker first?</div>
-        <div class="dec-a">Fastest to ship. Driver seam exists for OpenShell or VMs later.</div>
+        <div class="dec-a">Fastest to ship. Driver seam exists for SSH, OpenShell, or VMs later.</div>
+      </div>
+    
+      <div class="dec">
+        <div class="dec-q">Why not sync ~/.pi directly?</div>
+        <div class="dec-a">Rendered files drift. The product payload must be reproducible from source repos plus explicit metadata.</div>
+      </div>
+    
+      <div class="dec">
+        <div class="dec-q">Why vendor-skills?</div>
+        <div class="dec-a">Third-party skills need provenance and dependency setup without pretending The Guy authored them.</div>
       </div>
     
       <div class="dec">
@@ -693,7 +905,7 @@ footer{padding:36px 0;border-top:1px solid var(--line)}
 
 <footer>
 <div class="col foot">
-  <span class="foot-note">site/content/stack-overview.mjs · site/templates/render-stack-page.mjs · releases from CHANGELOG.md · 2026-04-18 14:17:24 UTC</span>
+  <span class="foot-note">site/content/stack-overview.mjs · site/templates/render-stack-page.mjs · releases from CHANGELOG.md · payload from docs/payload-sync.md · 2026-04-27 07:39:05 UTC</span>
   <a class="foot-top" href="#top">back to top ↑</a>
 </div>
 </footer>
