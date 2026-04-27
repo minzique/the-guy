@@ -913,6 +913,13 @@
       "required": true
     },
     {
+      "id": "pi-agent-skills-dev-rfc-bun-lock",
+      "source": "./assets/.pi/agent/skills/dev-rfc/bun.lock",
+      "destination": "~/.pi/agent/skills/dev-rfc/bun.lock",
+      "strategy": "copy",
+      "required": true
+    },
+    {
       "id": "pi-agent-skills-dev-rfc-package-json",
       "source": "./assets/.pi/agent/skills/dev-rfc/package.json",
       "destination": "~/.pi/agent/skills/dev-rfc/package.json",
@@ -955,6 +962,13 @@
       "required": true
     },
     {
+      "id": "pi-agent-skills-docs-style-skill-md",
+      "source": "./assets/.pi/agent/skills/docs-style/SKILL.md",
+      "destination": "~/.pi/agent/skills/docs-style/SKILL.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
       "id": "pi-agent-skills-exec-plan-skill-md",
       "source": "./assets/.pi/agent/skills/exec-plan/SKILL.md",
       "destination": "~/.pi/agent/skills/exec-plan/SKILL.md",
@@ -969,9 +983,23 @@
       "required": true
     },
     {
+      "id": "pi-agent-skills-git-workflow-skill-md",
+      "source": "./assets/.pi/agent/skills/git-workflow/SKILL.md",
+      "destination": "~/.pi/agent/skills/git-workflow/SKILL.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
       "id": "pi-agent-skills-humanizer-skill-md",
       "source": "./assets/.pi/agent/skills/humanizer/SKILL.md",
       "destination": "~/.pi/agent/skills/humanizer/SKILL.md",
+      "strategy": "copy",
+      "required": true
+    },
+    {
+      "id": "pi-agent-skills-project-docs-skill-md",
+      "source": "./assets/.pi/agent/skills/project-docs/SKILL.md",
+      "destination": "~/.pi/agent/skills/project-docs/SKILL.md",
       "strategy": "copy",
       "required": true
     },
